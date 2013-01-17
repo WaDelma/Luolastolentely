@@ -1,0 +1,26 @@
+Aihe: Luolalentely
+Toteutetaan peli, jossa pelaaja lentää 2D luolastossa.
+Peli on space invaders klooni luolastossa.
+
+Käyttäjät: Pelaaja
+
+Kaikkien käyttäjien toiminnot:
+    Pelin avaaminen
+        Pitäisi onnistua aina
+    Uuden pelin aloittaminen
+        Pitäisi onnistua aina
+    Edellisen pelin jatkaminen?
+        Vain, jos edellinen peli on jätetty kesken
+    Pelin ominaisuuksien säätö asetuksissa
+        Resoluutio
+        Kokonäytön tila
+        Äänen voimakkuus?
+    Pelin pelaaminen
+        Vain, jos pelaaja on pelissä :D
+        Sisältää muita toimintoja
+            Ampuminen
+            Power uppien kerääminen?
+            Liikkuminen
+    Lista parhaimmista pelaajista (top 30?)
+        Listaa voi katsoa aina
+        Listaan pääsee vain, jos peli loppuu tarpeeksi isolla pistemäärällä.
