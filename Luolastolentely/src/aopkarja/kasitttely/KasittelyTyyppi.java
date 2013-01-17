@@ -1,5 +1,5 @@
 
-package aopkarja;
+package aopkarja.kasitttely;
 
 /**
  *

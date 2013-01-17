@@ -1,5 +1,5 @@
 
-package aopkarja;
+package aopkarja.kasitttely;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
