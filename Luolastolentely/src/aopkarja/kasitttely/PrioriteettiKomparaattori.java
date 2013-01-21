@@ -1,5 +1,6 @@
 package aopkarja.kasitttely;
 
+import aopkarja.kasitttely.KasittelynHoitaja.KasittelijaKapseli;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -7,15 +8,10 @@ import java.util.Comparator;
  *
  * @author aopkarja
  */
-class PrioriteettiKomparaattori implements Serializable, Comparator<Object> {
+public class PrioriteettiKomparaattori implements Serializable, Comparator<KasittelijaKapseli> {
 
     @Override
-    public int compare(Object o1, Object o2) {
-        return getPrioriteetti(o2) - getPrioriteetti(o1);
-    }
-
-    public int getPrioriteetti(Object o) {
-        Prioriteetti annotaatio = o.getClass().getAnnotation(Prioriteetti.class);
-        return annotaatio == null ? 0 : annotaatio.value();
+    public int compare(KasittelijaKapseli o1, KasittelijaKapseli o2) {
+        return o2.getPrioriteetti() - o1.getPrioriteetti();
     }
 }

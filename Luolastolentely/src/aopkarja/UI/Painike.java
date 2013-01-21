@@ -20,5 +20,20 @@ public class Painike implements Komponentti{
             
         }
     }
+
+    @Override
+    public boolean leikkaa(Komponentti komponentti) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void lisaaKomponentti(Komponentti komponentti) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Komponentti getOmistaja() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

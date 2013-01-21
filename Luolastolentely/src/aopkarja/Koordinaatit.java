@@ -1,5 +1,7 @@
 package aopkarja;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Antti
@@ -20,7 +22,7 @@ public class Koordinaatit {
     }
 
     public final void muuta(int[] koordinaatit) {
-        if (koordinaatit.length >= this.koordinaatit.length) {
+        if (this.koordinaatit == null || koordinaatit.length >= this.koordinaatit.length) {
             this.koordinaatit = koordinaatit;
             return;
         }
@@ -44,6 +46,9 @@ public class Koordinaatit {
     }
 
     public void siirra(int... koordinaatit) {
+        if (this.koordinaatit == null) {
+            this.koordinaatit = new int[koordinaatit.length];
+        }
         if (koordinaatit.length > this.koordinaatit.length) {
             System.arraycopy(this.koordinaatit, 0, new int[koordinaatit.length], 0, this.koordinaatit.length);
         }
@@ -65,14 +70,30 @@ public class Koordinaatit {
     }
 
     public int etaisyysToiseen(int[] koordinaatit) {
+        if (this.koordinaatit == null) {
+            this.koordinaatit = new int[koordinaatit.length];
+        }
         if (koordinaatit.length > this.koordinaatit.length) {
             System.arraycopy(this.koordinaatit, 0, new int[koordinaatit.length], 0, this.koordinaatit.length);
         }
         int result = 0;
-        for(int n = 0; n < koordinaatit.length; n++){
+        for (int n = 0; n < koordinaatit.length; n++) {
             int temp = koordinaatit[n] - this.koordinaatit[n];
             result += temp * temp;
         }
         return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return 83 * 3 + Arrays.hashCode(this.koordinaatit);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        return Arrays.equals(this.koordinaatit, ((Koordinaatit) o).koordinaatit);
     }
 }

@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * @author aopkarja
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
+@Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Prioriteetti {
     int value() default 0;
 }
