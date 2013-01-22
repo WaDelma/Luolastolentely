@@ -11,9 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
-*
-* @author aopkarja
-*/
+ *
+ * @author aopkarja
+ */
 public class LuolastolentelyTest {
 
     private Luolastolentely peli;

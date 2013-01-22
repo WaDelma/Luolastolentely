@@ -74,9 +74,9 @@ public class KasittelyTest {
         assertEquals("TestiLuokkaLOPETA1", tehdyt.get(1));
         assertEquals("EpaPriorisoituTestiLuokkaLOPETA1", tehdyt.get(2));
     }
-    
+
     @Test
-    public void tietyntyyppisetKasittelijat(){
+    public void tietyntyyppisetKasittelijat() {
         hoitaja.lisaa(new PriorisoituTestiLuokka());
         hoitaja.lisaa(new PriorisoituTestiLuokka());
         hoitaja.lisaa(new TestiLuokka());

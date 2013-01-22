@@ -1,10 +1,12 @@
 package aopkarja.UI;
 
+import aopkarja.Komponentti;
 import aopkarja.Luolastolentely;
 import aopkarja.kasitttely.Kasittelija;
 import aopkarja.kasitttely.KasittelyTyyppi;
 import aopkarja.kasitttely.KasittelynHoitaja;
 import aopkarja.kasitttely.Prioriteetti;
+import aopkarja.tapahtuma.Tapahtuma;
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.LWJGLException;
@@ -20,13 +22,10 @@ import org.lwjgl.opengl.GL11;
 public class UIKasittelija {
 
     private KasittelynHoitaja<Komponentti> moodit;
-    
     private Komponentti moodi;
-    
     private Komponentti edellinenMoodi;
-    
     private List<Tapahtuma> tapahtumat;
-    
+
     public UIKasittelija(Komponentti moodi) {
         this.moodit = new KasittelynHoitaja();
         this.moodi = moodi;
@@ -35,13 +34,13 @@ public class UIKasittelija {
     }
 
     public UIKasittelija setMoodi(Komponentti moodi) {
-        if(!moodit.lisatty(moodi)){
+        if (!moodit.lisatty(moodi)) {
             moodit.lisaa(moodi);
         }
         this.moodi = moodi;
         return this;
     }
-    
+
     @Prioriteetti(100)
     @Kasittelija(KasittelyTyyppi.KAYNNISTA)
     public void initialisoi() throws LWJGLException {
@@ -57,7 +56,7 @@ public class UIKasittelija {
     @Kasittelija(KasittelyTyyppi.AJA)
     public void aja() {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        if(moodi != edellinenMoodi){
+        if (moodi != edellinenMoodi) {
             moodit.kasittele(KasittelyTyyppi.LOPETA, edellinenMoodi);
             edellinenMoodi = moodi;
             moodit.kasittele(KasittelyTyyppi.KAYNNISTA, moodi);
@@ -78,7 +77,7 @@ public class UIKasittelija {
 //        GL11.glEnd();
         Display.update();
         Display.sync(60);
-        if(Display.isCloseRequested()){
+        if (Display.isCloseRequested()) {
             Luolastolentely.getInstanssi().lopetaPeli();
         }
     }
@@ -87,8 +86,8 @@ public class UIKasittelija {
     public void sulje() {
         Display.destroy();
     }
-    
-    public void lisaaTapahtuma(Tapahtuma tapahtuma){
+
+    public void lisaaTapahtuma(Tapahtuma tapahtuma) {
         tapahtumat.add(tapahtuma);
     }
 }

@@ -1,4 +1,3 @@
-
 package aopkarja.kasitttely;
 
 import java.lang.annotation.ElementType;
@@ -13,5 +12,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Prioriteetti {
+
     int value() default 0;
 }

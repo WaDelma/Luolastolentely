@@ -1,6 +1,8 @@
 package aopkarja.kasitttely;
 
-import aopkarja.VirheidenHoitaja;
+import aopkarja.hoitajat.VirheidenHoitaja;
+import aopkarja.tapahtuma.TapahtumienKasittelija;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -32,35 +34,29 @@ public class KasittelynHoitaja<T> {
             return;
         }
         for (KasittelijaKapseli kapseli : kasittelijat.get(tyyppi)) {
-            try {
-                kapseli.invoke();
-            } catch (ReflectiveOperationException e) {
-                VirheidenHoitaja.ilmoita(e);
-            }
+            kapseli.kayta();
         }
     }
 
     public void kasittele(KasittelyTyyppi tyyppi, T kasittelija) {
-        if(kasittelijat == null || kasittelijat.isEmpty() || kasittelija == null){
+        if (kasittelijat == null || kasittelijat.isEmpty() || kasittelija == null) {
             return;
         }
         for (KasittelijaKapseli kapseli : kasittelijat.get(tyyppi)) {
             if (kasittelija.equals(kapseli.olio)) {
-                try {
-                    kapseli.invoke();
-                } catch (ReflectiveOperationException e) {
-                    VirheidenHoitaja.ilmoita(e);
-                }
+                kapseli.kayta();
             }
         }
     }
 
     public void lisaa(T kasittelija) {
         int prioriteetti = 0;
-        if (kasittelija.getClass().isAnnotationPresent(Prioriteetti.class)) {
-            prioriteetti = kasittelija.getClass().getAnnotation(Prioriteetti.class).value();
+        Class<?> luokka = kasittelija.getClass();
+        Prioriteetti prioriteettiAnnotaation = luokka.getAnnotation(Prioriteetti.class);
+        if (prioriteettiAnnotaation != null) {
+            prioriteetti = prioriteettiAnnotaation.value();
         }
-        for (Method metodi : kasittelija.getClass().getMethods()) {
+        for (Method metodi : luokka.getMethods()) {
             Kasittelija annotaatio = metodi.getAnnotation(Kasittelija.class);
             if (annotaatio != null) {
                 int valiaikainenPrioriteetti = prioriteetti;
@@ -72,6 +68,16 @@ public class KasittelynHoitaja<T> {
         }
         kasittelijaOliot.add(kasittelija);
         Collections.sort(kasittelijaOliot, new PrioriteettiOlioKomparaattori());
+    }
+
+    private void lisaa(KasittelyTyyppi tyyppi, KasittelijaKapseli kapseli) {
+        List<KasittelijaKapseli> kapselit = kasittelijat.get(tyyppi);
+        if (kapselit == null) {
+            kapselit = new ArrayList<>();
+        }
+        kapselit.add(kapseli);
+        Collections.sort(kapselit, new PrioriteettiKomparaattori());
+        kasittelijat.put(tyyppi, kapselit);
     }
 
     public List<T> getKasittelijat(Class luokka) {
@@ -88,16 +94,6 @@ public class KasittelynHoitaja<T> {
         return kasittelijaOliot.contains(moodi);
     }
 
-    private void lisaa(KasittelyTyyppi tyyppi, KasittelijaKapseli kapseli) {
-        List<KasittelijaKapseli> kapselit = kasittelijat.get(tyyppi);
-        if (kapselit == null) {
-            kapselit = new ArrayList<>();
-        }
-        kapselit.add(kapseli);
-        Collections.sort(kapselit, new PrioriteettiKomparaattori());
-        kasittelijat.put(tyyppi, kapselit);
-    }
-
     public static class KasittelijaKapseli<T> {
 
         private final Method metodi;
@@ -110,8 +106,12 @@ public class KasittelynHoitaja<T> {
             this.prioriteetti = prioriteetti;
         }
 
-        public void invoke() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-            metodi.invoke(olio);
+        public void kayta() {
+            try {
+                metodi.invoke(olio);
+            } catch (ReflectiveOperationException e) {
+                VirheidenHoitaja.ilmoita(e);
+            }
         }
 
         public int getPrioriteetti() {

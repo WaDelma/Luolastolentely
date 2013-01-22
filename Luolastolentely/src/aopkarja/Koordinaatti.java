@@ -6,18 +6,18 @@ import java.util.Arrays;
  *
  * @author Antti
  */
-public class Koordinaatit {
+public class Koordinaatti {
 
     private int[] koordinaatit;
 
-    public Koordinaatit(int... koordinaatit) {
+    public Koordinaatti(int... koordinaatit) {
         muuta(koordinaatit);
     }
 
-    public Koordinaatit() {
+    public Koordinaatti() {
     }
 
-    public void muuta(Koordinaatit koordinaatit) {
+    public void muuta(Koordinaatti koordinaatit) {
         muuta(koordinaatit.koordinaatit);
     }
 
@@ -41,7 +41,7 @@ public class Koordinaatit {
         return koordinaatit[2];
     }
 
-    public void siirra(Koordinaatit koordinaatit) {
+    public void siirra(Koordinaatti koordinaatit) {
         siirra(koordinaatit.koordinaatit);
     }
 
@@ -57,11 +57,11 @@ public class Koordinaatit {
         }
     }
 
-    public double etaisyys(Koordinaatit koordinaatit) {
+    public double etaisyys(Koordinaatti koordinaatit) {
         return etaisyys(koordinaatit.koordinaatit);
     }
 
-    public int etaisyysToiseen(Koordinaatit koordinaatit) {
+    public int etaisyysToiseen(Koordinaatti koordinaatit) {
         return etaisyysToiseen(koordinaatit.koordinaatit);
     }
 
@@ -94,6 +94,6 @@ public class Koordinaatit {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        return Arrays.equals(this.koordinaatit, ((Koordinaatit) o).koordinaatit);
+        return Arrays.equals(this.koordinaatit, ((Koordinaatti) o).koordinaatit);
     }
 }

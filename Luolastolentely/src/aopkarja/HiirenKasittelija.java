@@ -1,11 +1,9 @@
 package aopkarja;
 
-import aopkarja.UI.Painallus;
-import aopkarja.UI.Tapahtuma;
 import aopkarja.kasitttely.Kasittelija;
 import aopkarja.kasitttely.KasittelyTyyppi;
-import java.util.ArrayList;
-import java.util.List;
+import aopkarja.tapahtuma.TapahtumienKasittelija;
+import aopkarja.tapahtuma.tapahtumat.Painallus;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 
@@ -16,14 +14,18 @@ import org.lwjgl.input.Mouse;
 public class HiirenKasittelija {
 
     private Thread hiirenSaie;
-    private List<Tapahtuma> tapahtumat;//TODO: Tapahtuman käsittelijä
     private boolean[] painikkeidenTilat;
+    public static final int POLLAUKSEN_AIKAVALI = 10;
+    private TapahtumienKasittelija kasittelija;
+
+    public HiirenKasittelija(TapahtumienKasittelija kasittelija) {
+        this.kasittelija = kasittelija;
+    }
 
     @Kasittelija(KasittelyTyyppi.KAYNNISTA)
     public void kaynnnista() throws LWJGLException {
         Mouse.create();
-        tapahtumat = new ArrayList<>();
-        painikkeidenTilat = new boolean[Mouse.getButtonCount()]; 
+        painikkeidenTilat = new boolean[Mouse.getButtonCount()];
         hiirenSaie = new Thread() {
             @Override
             public void run() {
@@ -31,18 +33,18 @@ public class HiirenKasittelija {
                     Mouse.poll();
                     while (Mouse.next()) {
                         int painike = Mouse.getEventButton();
-                        if(painike == -1){
+                        if (painike == -1) {
                             continue;
                         }
                         boolean painettu = Mouse.getEventButtonState();
                         if (painettu && !painikkeidenTilat[painike]) {
-                            Koordinaatit koordinaatit = new Koordinaatit(Mouse.getEventX(), Mouse.getEventY());
-                            tapahtumat.add(new Painallus(getPainike(painike), koordinaatit));
+                            Koordinaatti koordinaatit = new Koordinaatti(Mouse.getEventX(), Mouse.getEventY());
+                            kasittelija.lisaa(new Painallus(getPainike(painike), koordinaatit));
                         }
                         painikkeidenTilat[painike] = painettu;
                     }
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(POLLAUKSEN_AIKAVALI);
                     } catch (InterruptedException ex) {
                     }
                 }

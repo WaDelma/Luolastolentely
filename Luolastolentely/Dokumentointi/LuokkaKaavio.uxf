@@ -1,0 +1,1157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>8</zoom_level>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>464</x>
+      <y>120</y>
+      <w>105</w>
+      <h>41</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+&lt;&lt;main&gt;&gt;
+LuolastoLentely</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>824</x>
+      <y>136</y>
+      <w>136</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>KasittelynHoitaja&lt;T&gt;
+--
+kasittele()
+lisaa()
+--
+{innerclass
+KasittelijaKapseli&lt;T&gt;
+--
+Method metodi
+int prioriteetti
+T olio
+innerclass}
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>544</x>
+      <y>120</y>
+      <w>296</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>280;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>1088</x>
+      <y>312</y>
+      <w>121</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+&lt;&lt;enumeration&gt;&gt;
+KasittelyTyyppi
+--
+KAYNNISTA
+AJA
+LOPETA
+
+autoresize=false</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>904</x>
+      <y>344</y>
+      <w>113</w>
+      <h>41</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+&lt;&lt;annotation&gt;&gt;
+Kasittelija
+
+
+</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>992</x>
+      <y>336</y>
+      <w>112</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>96;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>760</x>
+      <y>344</y>
+      <w>129</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+&lt;&lt;annotation&gt;&gt;
+Prioriteetti
+--
+int value() default 0;
+</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>872</x>
+      <y>280</y>
+      <w>104</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>88;64;88;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>240</y>
+      <w>128</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+r2=&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>24;104;24;64;96;64;96;24</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>680</x>
+      <y>0</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+VirheidenHoitaja
+--
+static void ilmoita()</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>1152</x>
+      <y>128</y>
+      <w>153</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+PrioriteettiKomparaattori
+autoresize=false</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>936</x>
+      <y>120</y>
+      <w>232</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;216;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Interface</type>
+    <coordinates>
+      <x>1048</x>
+      <y>240</y>
+      <w>192</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Comparator&lt;T extends Object&gt;
+--
+compare(T o1, T o2)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1120</x>
+      <y>128</y>
+      <w>160</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+KasittelijaKapseli</panel_attributes>
+    <additional_attributes>24;112;24;88;144;88;144;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1072</x>
+      <y>168</y>
+      <w>88</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+</panel_attributes>
+    <additional_attributes>72;72;72;48;24;48;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>992</x>
+      <y>168</y>
+      <w>177</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+PrioriteettiOlioKomparaattori</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>936</x>
+      <y>152</y>
+      <w>72</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;56;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>496</x>
+      <y>136</y>
+      <w>40</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;344</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>536</x>
+      <y>360</y>
+      <w>424</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>408;24;408;136;24;136</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>520</x>
+      <y>184</y>
+      <w>320</w>
+      <h>312</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>304;24;24;24;24;296</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Interface</type>
+    <coordinates>
+      <x>416</x>
+      <y>624</y>
+      <w>112</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Komponentti
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>848</x>
+      <y>592</y>
+      <w>113</w>
+      <h>89</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+Koordinaatit
+--
+muuta()
+siirra()
+etaisyys()
+etaisyysToiseen()</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>480</y>
+      <w>88</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;152;72;96;72;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>608</y>
+      <w>288</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>272;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Interface</type>
+    <coordinates>
+      <x>576</x>
+      <y>784</y>
+      <w>112</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Tapahtuma
+--
+Object[] getTieto()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>880</x>
+      <y>784</y>
+      <w>65</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+Painallus</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>616</x>
+      <y>768</y>
+      <w>280</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+</panel_attributes>
+    <additional_attributes>24;24;264;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>888</x>
+      <y>656</y>
+      <w>40</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;128</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>384</x>
+      <y>560</y>
+      <w>104</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0...*
+&lt;omistaa</panel_attributes>
+    <additional_attributes>88;64;88;40;56;40;56;72;80;72</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>272</x>
+      <y>784</y>
+      <w>145</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+TapahtumienKasittelija
+</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>392</x>
+      <y>752</y>
+      <w>248</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..n
+&lt;&lt;contains&gt;&gt;</panel_attributes>
+    <additional_attributes>232;40;24;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>320</x>
+      <y>112</y>
+      <w>160</w>
+      <h>688</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>144;24;24;24;24;672</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>480</x>
+      <y>480</y>
+      <w>81</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+UIKasittelija</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>672</x>
+      <y>696</y>
+      <w>57</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+Valikko</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>536</x>
+      <y>376</y>
+      <w>296</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>280;24;280;120;24;120</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>608</y>
+      <w>232</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>24;24;24;104;216;104</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>312</x>
+      <y>128</y>
+      <w>408</w>
+      <h>656</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;create&gt;&gt;</panel_attributes>
+    <additional_attributes>392;592;392;640;64;640;64;24;152;24</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>520</x>
+      <y>648</y>
+      <w>41</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+Piste</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>608</y>
+      <w>96</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>24;24;24;104;80;104;80;64</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>592</x>
+      <y>672</y>
+      <w>57</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+Painike</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>608</y>
+      <w>176</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>24;24;24;104;160;104;160;88</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1024</x>
+      <y>752</y>
+      <w>136</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>HiirenKasittelija
+--
+{innerclass
+Thread
+--
+run()
+innerclass}
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>944</x>
+      <y>360</y>
+      <w>160</w>
+      <h>408</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>24;24;24;136;144;136;144;392</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>232</x>
+      <y>112</y>
+      <w>880</w>
+      <h>752</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>232;24;24;24;24;736;864;736;864;712</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>920</x>
+      <y>768</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+r1=&lt;&lt;create&gt;&gt;</panel_attributes>
+    <additional_attributes>24;24;104;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Interface</type>
+    <coordinates>
+      <x>416</x>
+      <y>944</y>
+      <w>112</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Renderoija
+--
+renderoi()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>616</x>
+      <y>944</y>
+      <w>113</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+ValikkoRenderoija
+</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>928</y>
+      <w>176</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>24;24;160;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>352</x>
+      <y>128</y>
+      <w>368</w>
+      <h>832</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>352;816;352;640;24;640;24;24;112;24</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>728</x>
+      <y>624</y>
+      <w>41</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+Alue
+--
+</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>744</x>
+      <y>608</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>104;24;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>1208</x>
+      <y>704</y>
+      <w>121</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+LeikkaustenHoitaja
+</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//This is a tutorial for a self resizing component 
+//In addition you are able to resize at manually
+//As soon as it is resized manually a new text is
+//added to the property panel
+setAutoresize(20,20,10);
+
+int y=textHeight();
+
+boolean center = true;
+for(int i = 0; i &lt; textlines.size(); i++) {
+	String textline = textlines.get(i);
+	if(textline.equals("--")) {
+		drawLineHorizontal((int) (y-textHeight()*0.7));
+		center = false;
+		if (!isManualResized()) height -= (int) (textHeight()*0.75);
+		y += textHeight()*0.3;
+	}
+	else {
+		if (center) y += printCenter(textline,y); 
+		else y += printLeft(textline,y);
+	}
+}
+
+drawRectangle(0,0,onGrid(width),onGrid(height));</custom_code>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>704</x>
+      <y>672</y>
+      <w>520</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>504;40;24;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>536</x>
+      <y>616</y>
+      <w>204</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;create&gt;&gt;</panel_attributes>
+    <additional_attributes>24;40;152;40;152;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>288</x>
+      <y>784</y>
+      <w>856</w>
+      <h>248</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>24;24;24;232;840;232;840;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>360</y>
+      <w>504</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>488;24;488;136;24;272</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>448</x>
+      <y>616</y>
+      <w>40</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;328;24;24</additional_attributes>
+  </element>
+</diagram>

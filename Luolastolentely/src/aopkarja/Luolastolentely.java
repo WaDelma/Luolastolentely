@@ -1,12 +1,12 @@
 package aopkarja;
 
-import aopkarja.UI.Tapahtuma;
+import aopkarja.hoitajat.VirheidenHoitaja;
 import aopkarja.UI.UIKasittelija;
-import aopkarja.UI.Valikko;
+import aopkarja.UI.renderoijat.ValikkoRenderoija;
 import aopkarja.kasitttely.KasittelyTyyppi;
 import aopkarja.kasitttely.KasittelynHoitaja;
-import java.util.ArrayList;
-import java.util.List;
+import aopkarja.komponentit.Valikko;
+import aopkarja.tapahtuma.TapahtumienKasittelija;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Luolastolentely {
     private static Luolastolentely instanssi;
     private boolean kaynnissa;
     private KasittelynHoitaja kasittelijat;
-    private List<Tapahtuma> tapahtumat;
+    private TapahtumienKasittelija tapahtumienKasittelija;
 
     /**
      * @param args the command line arguments
@@ -27,7 +27,7 @@ public class Luolastolentely {
             instanssi = new Luolastolentely();
             instanssi.initialisoi();
             instanssi.aja();
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             VirheidenHoitaja.ilmoita(e);
         } catch (Exception e) {
             VirheidenHoitaja.ilmoita(e);
@@ -37,16 +37,17 @@ public class Luolastolentely {
     }
 
     private void initialisoi() {
-        tapahtumat = new ArrayList<>();
+        tapahtumienKasittelija = new TapahtumienKasittelija();
         kasittelijat = new KasittelynHoitaja();
-        kasittelijat.lisaa(new UIKasittelija(new Valikko()));
-        kasittelijat.lisaa(new HiirenKasittelija());
+        kasittelijat.lisaa(new UIKasittelija(new Valikko(new ValikkoRenderoija(), null)));
+        kasittelijat.lisaa(new HiirenKasittelija(tapahtumienKasittelija));
         kasittelijat.kasittele(KasittelyTyyppi.KAYNNISTA);
         kaynnissa = true;
     }
 
     private void aja() {
         do {
+            tapahtumienKasittelija.kasittele(kasittelijat.getKasittelijat());
             kasittelijat.kasittele(KasittelyTyyppi.AJA);
         } while (kaynnissa);
     }

@@ -1,16 +1,19 @@
+package aopkarja.tapahtuma.tapahtumat;
 
-package aopkarja.UI;
-
-import aopkarja.Koordinaatit;
+import aopkarja.tapahtuma.Tapahtuma;
+import aopkarja.Koordinaatti;
+import aopkarja.tapahtuma.Tapahtuma;
 
 /**
  *
  * @author Antti
  */
 public class Painallus implements Tapahtuma {
+
     private final int painike;
-    private final Koordinaatit koordinaatit;
-    public Painallus(int painike, Koordinaatit koordinaatit){
+    private final Koordinaatti koordinaatit;
+
+    public Painallus(int painike, Koordinaatti koordinaatit) {
         this.painike = painike;
         this.koordinaatit = koordinaatit;
     }
