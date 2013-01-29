@@ -1,10 +1,9 @@
 package aopkarja;
 
-import aopkarja.Koordinaatti;
 import aopkarja.UI.Renderoija;
 import aopkarja.kasitttely.Kasittelija;
 import aopkarja.kasitttely.KasittelyTyyppi;
-import aopkarja.tapahtuma.Tapahtuma;
+import aopkarja.kasitttely.Tapahtuma;
 import java.util.ArrayList;
 import java.util.List;
 

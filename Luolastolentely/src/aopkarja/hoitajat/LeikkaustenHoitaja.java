@@ -1,6 +1,6 @@
 package aopkarja.hoitajat;
 
-import aopkarja.Komponentti;
+import aopkarja.Alue;
 
 /**
  *
@@ -8,7 +8,7 @@ import aopkarja.Komponentti;
  */
 public class LeikkaustenHoitaja {
 
-    public static boolean leikkaako(Komponentti k1, Komponentti k2) {
+    public static boolean leikkaako(Alue alue1, Alue alue2) {
         return true;
     }
 }

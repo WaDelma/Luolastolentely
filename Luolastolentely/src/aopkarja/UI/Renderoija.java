@@ -6,9 +6,9 @@ import aopkarja.Komponentti;
  *
  * @author aopkarja
  */
-public interface Renderoija {
+public interface Renderoija<T extends Komponentti> {
 
-    public void renderoi(Komponentti komponentti);
+    public void renderoi(T komponentti);
 
-    public void initialisoi(Komponentti komponentti);
+    public void initialisoi(T komponentti);
 }

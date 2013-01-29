@@ -6,5 +6,5 @@ package aopkarja.kasitttely;
  */
 public enum KasittelyTyyppi {
 
-    KAYNNISTA, AJA, LOPETA
+    KAYNNISTA, AJA, LOPETA, TAPAHTUMA
 }

@@ -1,8 +1,8 @@
-package aopkarja.tapahtuma.tapahtumat;
+package aopkarja.kasittely.tapahtumat;
 
-import aopkarja.tapahtuma.Tapahtuma;
+import aopkarja.kasitttely.Tapahtuma;
 import aopkarja.Koordinaatti;
-import aopkarja.tapahtuma.Tapahtuma;
+import aopkarja.kasitttely.Tapahtuma;
 
 /**
  *

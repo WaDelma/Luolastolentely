@@ -1,9 +1,10 @@
-package aopkarja;
+package aopkarja.kasittelijat;
 
+import aopkarja.Koordinaatti;
+import aopkarja.Luolastolentely;
+import aopkarja.kasittely.tapahtumat.Painallus;
 import aopkarja.kasitttely.Kasittelija;
 import aopkarja.kasitttely.KasittelyTyyppi;
-import aopkarja.tapahtuma.TapahtumienKasittelija;
-import aopkarja.tapahtuma.tapahtumat.Painallus;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 

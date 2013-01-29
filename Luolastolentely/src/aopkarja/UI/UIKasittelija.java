@@ -6,13 +6,14 @@ import aopkarja.kasitttely.Kasittelija;
 import aopkarja.kasitttely.KasittelyTyyppi;
 import aopkarja.kasitttely.KasittelynHoitaja;
 import aopkarja.kasitttely.Prioriteetti;
-import aopkarja.tapahtuma.Tapahtuma;
+import aopkarja.kasitttely.Tapahtuma;
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.glu.GLU;
 
 /**
  *
@@ -24,13 +25,11 @@ public class UIKasittelija {
     private KasittelynHoitaja<Komponentti> moodit;
     private Komponentti moodi;
     private Komponentti edellinenMoodi;
-    private List<Tapahtuma> tapahtumat;
 
     public UIKasittelija(Komponentti moodi) {
         this.moodit = new KasittelynHoitaja();
         this.moodi = moodi;
         moodit.lisaa(moodi);
-        tapahtumat = new ArrayList<>();
     }
 
     public UIKasittelija setMoodi(Komponentti moodi) {
@@ -45,6 +44,7 @@ public class UIKasittelija {
     @Kasittelija(KasittelyTyyppi.KAYNNISTA)
     public void initialisoi() throws LWJGLException {
         Display.setDisplayMode(new DisplayMode(800, 600));
+        Display.setResizable(true);
         Display.create();
 
         GL11.glMatrixMode(GL11.GL_PROJECTION);
@@ -61,10 +61,6 @@ public class UIKasittelija {
             edellinenMoodi = moodi;
             moodit.kasittele(KasittelyTyyppi.KAYNNISTA, moodi);
         }
-        for (Tapahtuma tapahtuma : tapahtumat) {
-            moodi.tapahtuu(tapahtuma);
-        }
-        tapahtumat.clear();
         moodit.kasittele(KasittelyTyyppi.AJA, moodi);
 //        GL11.glColor3f(1.0f, 1.0f, 0.0f);
 //        GL11.glBegin(GL11.GL_QUADS);
@@ -79,6 +75,12 @@ public class UIKasittelija {
         Display.sync(60);
         if (Display.isCloseRequested()) {
             Luolastolentely.getInstanssi().lopetaPeli();
+        } else if (Display.wasResized()) {
+//            GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
+//            GL11.glMatrixMode(GL11.GL_PROJECTION);
+//            GL11.glLoadIdentity();
+//            GL11.glOrtho(0, Display.getWidth(), 0, Display.getHeight(), 0, 0);
+//            GL11.glMatrixMode(GL11.GL_MODELVIEW);
         }
     }
 
@@ -87,7 +89,8 @@ public class UIKasittelija {
         Display.destroy();
     }
 
-    public void lisaaTapahtuma(Tapahtuma tapahtuma) {
-        tapahtumat.add(tapahtuma);
+    @Kasittelija(KasittelyTyyppi.TAPAHTUMA)
+    public void tee(Tapahtuma tapahtuma) {
+        moodi.tapahtuu(tapahtuma);
     }
 }

@@ -3,7 +3,7 @@ package aopkarja.komponentit;
 import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
 import aopkarja.UI.Renderoija;
-import aopkarja.tapahtuma.Tapahtuma;
+import aopkarja.kasitttely.Tapahtuma;
 
 /**
  *

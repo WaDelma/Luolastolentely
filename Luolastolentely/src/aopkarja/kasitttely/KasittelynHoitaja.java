@@ -1,9 +1,7 @@
 package aopkarja.kasitttely;
 
 import aopkarja.hoitajat.VirheidenHoitaja;
-import aopkarja.tapahtuma.TapahtumienKasittelija;
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
+import aopkarja.kasittely.tapahtumat.TyhjaTapahtuma;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +17,7 @@ public class KasittelynHoitaja<T> {
 
     private List<T> kasittelijaOliot;
     private Map<KasittelyTyyppi, List<KasittelijaKapseli>> kasittelijat;
+    private static final Tapahtuma tyhjaTapahtuma = new TyhjaTapahtuma();
 
     public List<T> getKasittelijat() {
         return kasittelijaOliot;
@@ -30,22 +29,38 @@ public class KasittelynHoitaja<T> {
     }
 
     public void kasittele(KasittelyTyyppi tyyppi) {
-        if (kasittelijat == null || kasittelijat.isEmpty()) {
-            return;
-        }
-        for (KasittelijaKapseli kapseli : kasittelijat.get(tyyppi)) {
-            kapseli.kayta();
-        }
+        kasittele(kasittelijat.get(tyyppi), tyhjaTapahtuma);
+    }
+
+    public void kasittele(KasittelyTyyppi tyyppi, Tapahtuma tapahtuma) {
+        kasittele(kasittelijat.get(tyyppi), tapahtuma);
     }
 
     public void kasittele(KasittelyTyyppi tyyppi, T kasittelija) {
-        if (kasittelijat == null || kasittelijat.isEmpty() || kasittelija == null) {
+        kasittele(tyyppi, kasittelija, tyhjaTapahtuma);
+    }
+
+    public void kasittele(KasittelyTyyppi tyyppi, T kasittelija, Tapahtuma tapahtuma) {
+        if (kasittelijat == null || kasittelijat.isEmpty()) {
             return;
         }
-        for (KasittelijaKapseli kapseli : kasittelijat.get(tyyppi)) {
-            if (kasittelija.equals(kapseli.olio)) {
-                kapseli.kayta();
+        List<KasittelijaKapseli> lista = kasittelijat.get(tyyppi);     
+        if(lista == null){
+            return;
+        }
+        for (KasittelijaKapseli kapseli : lista) {
+            if (kasittelija == null || kasittelija.equals(kapseli.olio)) {
+                kapseli.kayta(tapahtuma);
             }
+        }
+    }
+
+    public void kasittele(List<KasittelijaKapseli> kasittelijat, Tapahtuma tapahtuma) {
+        if (kasittelijat == null || kasittelijat.isEmpty()) {
+            return;
+        }
+        for (KasittelijaKapseli kapseli : kasittelijat) {
+            kapseli.kayta(tapahtuma);
         }
     }
 
@@ -99,17 +114,33 @@ public class KasittelynHoitaja<T> {
         private final Method metodi;
         private final int prioriteetti;
         private final T olio;
+        private boolean tapahtumiaKasitteleva;
 
         public KasittelijaKapseli(T olio, Method metodi, int prioriteetti) {
             this.olio = olio;
             this.metodi = metodi;
             this.prioriteetti = prioriteetti;
+            Class<?>[] parametrit = metodi.getParameterTypes();
+            if (parametrit.length > 1) {
+                throw new IllegalArgumentException("Wrong amount of parameters (" + parametrit.length + ") in method " + metodi.getName());
+            } else if (parametrit.length == 1) {
+                if (parametrit[0].equals(Tapahtuma.class)) {
+                    tapahtumiaKasitteleva = true;
+                } else {
+                    throw new IllegalArgumentException("Method with no parameters or with parameter type of Tapahtuma expected. Not type of " + parametrit[0].getName());
+                }
+            }
         }
 
-        public void kayta() {
+        public void kayta(Tapahtuma tapahtuma) {
             try {
-                metodi.invoke(olio);
+                if (tapahtumiaKasitteleva) {
+                    metodi.invoke(olio, tapahtuma);
+                } else {
+                    metodi.invoke(olio);
+                }
             } catch (ReflectiveOperationException e) {
+                System.out.println(metodi);
                 VirheidenHoitaja.ilmoita(e);
             }
         }

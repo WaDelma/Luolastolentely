@@ -1,12 +1,13 @@
 package aopkarja;
 
-import aopkarja.hoitajat.VirheidenHoitaja;
+import aopkarja.kasittelijat.TapahtumienKasittelija;
+import aopkarja.kasittelijat.HiirenKasittelija;
 import aopkarja.UI.UIKasittelija;
 import aopkarja.UI.renderoijat.ValikkoRenderoija;
+import aopkarja.hoitajat.VirheidenHoitaja;
 import aopkarja.kasitttely.KasittelyTyyppi;
 import aopkarja.kasitttely.KasittelynHoitaja;
 import aopkarja.komponentit.Valikko;
-import aopkarja.tapahtuma.TapahtumienKasittelija;
 
 /**
  *
@@ -17,7 +18,6 @@ public class Luolastolentely {
     private static Luolastolentely instanssi;
     private boolean kaynnissa;
     private KasittelynHoitaja kasittelijat;
-    private TapahtumienKasittelija tapahtumienKasittelija;
 
     /**
      * @param args the command line arguments
@@ -37,17 +37,19 @@ public class Luolastolentely {
     }
 
     private void initialisoi() {
-        tapahtumienKasittelija = new TapahtumienKasittelija();
         kasittelijat = new KasittelynHoitaja();
-        kasittelijat.lisaa(new UIKasittelija(new Valikko(new ValikkoRenderoija(), null)));
-        kasittelijat.lisaa(new HiirenKasittelija(tapahtumienKasittelija));
+        TapahtumienKasittelija tapahtumanKasittelija = new TapahtumienKasittelija();
+        kasittelijat.lisaa(tapahtumanKasittelija);
+        UIKasittelija uikasittelija = new UIKasittelija(new Valikko(new ValikkoRenderoija(), null));
+        tapahtumanKasittelija.lisaaKasittelija(uikasittelija);
+        kasittelijat.lisaa(uikasittelija);
+        kasittelijat.lisaa(new HiirenKasittelija(tapahtumanKasittelija));
         kasittelijat.kasittele(KasittelyTyyppi.KAYNNISTA);
         kaynnissa = true;
     }
 
     private void aja() {
         do {
-            tapahtumienKasittelija.kasittele(kasittelijat.getKasittelijat());
             kasittelijat.kasittele(KasittelyTyyppi.AJA);
         } while (kaynnissa);
     }
@@ -64,7 +66,7 @@ public class Luolastolentely {
         return instanssi;
     }
 
-    boolean kaynnissa() {
+    public boolean kaynnissa() {
         return kaynnissa;
     }
 }

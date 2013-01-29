@@ -1,4 +1,4 @@
-package aopkarja.tapahtuma;
+package aopkarja.kasitttely;
 
 /**
  *
