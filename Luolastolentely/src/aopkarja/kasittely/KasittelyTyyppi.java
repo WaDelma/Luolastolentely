@@ -1,7 +1,8 @@
-package aopkarja.kasitttely;
+package aopkarja.kasittely;
 
 /**
- *
+ * {@link Kasittelija}n tyyppi
+ * 
  * @author aopkarja
  */
 public enum KasittelyTyyppi {

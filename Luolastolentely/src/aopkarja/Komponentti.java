@@ -1,13 +1,16 @@
 package aopkarja;
 
 import aopkarja.UI.Renderoija;
-import aopkarja.kasitttely.Kasittelija;
-import aopkarja.kasitttely.KasittelyTyyppi;
-import aopkarja.kasitttely.Tapahtuma;
+import aopkarja.kasittely.Kasittelija;
+import aopkarja.kasittely.KasittelyTyyppi;
+import aopkarja.kasittely.Tapahtuma;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
+ * Komponentti, jonka voi sijoittaa moodiin (kts. {@link UI.UIKasittelija}) tai
+ * toiseen komponenttiin.
  *
  * @author aopkarja
  */
@@ -18,6 +21,11 @@ public abstract class Komponentti {
     private final Renderoija renderoija;
     private final Alue alue;
 
+    /**
+     *
+     * @param renderoija
+     * @param omistaja
+     */
     public Komponentti(Renderoija renderoija, Komponentti omistaja) {
         komponentit = new ArrayList<>();
         alue = new Alue();
@@ -25,37 +33,63 @@ public abstract class Komponentti {
         this.omistaja = omistaja;
     }
 
+    /**
+     *
+     * @param tapahtuma
+     */
     public abstract void tapahtuu(Tapahtuma tapahtuma);
 
+    /**
+     *
+     */
     @Kasittelija(KasittelyTyyppi.KAYNNISTA)
-    public final void initialisoi() {
+    private void initialisoi() {
         renderoija.initialisoi(this);
         for (Komponentti komponentti : komponentit) {
             komponentti.initialisoi();
         }
     }
-        
+
+    /**
+     *
+     */
     @Kasittelija(KasittelyTyyppi.AJA)
-    public final void renderoi() {
+    private void renderoi() {
         renderoija.renderoi(this);
         for (Komponentti komponentti : komponentit) {
             komponentti.renderoi();
         }
     }
 
-    public final Alue getAlue() {
+    /**
+     *
+     * @return Komponentin {@link Alue}
+     */
+    public Alue getAlue() {
         return alue;
     }
 
-    public final List<Komponentti> getLapset() {
-        return komponentit;
+    /**
+     *
+     * @return Komponentin lapset
+     */
+    public List<Komponentti> getLapset() {
+        return Collections.unmodifiableList(komponentit);
     }
 
-    public final void lisaa(Komponentti komponentti) {
+    /**
+     *
+     * @param komponentti
+     */
+    public void lisaa(Komponentti komponentti) {
         komponentit.add(komponentti);
     }
 
-    public final Komponentti getOmistaja() {
+    /**
+     *
+     * @return Koponentin vanhempi
+     */
+    public Komponentti getOmistaja() {
         return omistaja;
     }
 }

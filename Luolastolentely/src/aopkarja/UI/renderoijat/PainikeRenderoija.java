@@ -1,17 +1,21 @@
 package aopkarja.UI.renderoijat;
 
-import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
 import aopkarja.UI.Renderoija;
 import aopkarja.komponentit.Painike;
 import org.lwjgl.opengl.GL11;
 
 /**
- *
+ * Renderöi painikkeen.
+ * 
  * @author aopkarja
  */
 public class PainikeRenderoija implements Renderoija<Painike> {
 
+    /**
+     *
+     * @param komponentti
+     */
     @Override
     public void renderoi(Painike komponentti) {
         if (komponentti.painettu) {
@@ -29,9 +33,10 @@ public class PainikeRenderoija implements Renderoija<Painike> {
 //        GL11.glEnd();
         GL11.glBegin(GL11.GL_QUADS);
         {
-            for (Koordinaatti koordinaatit : komponentti.getAlue().getKoordinaatit()) {
+            for (Koordinaatti koordinaatti : komponentti.getAlue().getKoordinaatit()) {
                 //System.out.println(koordinaatit.getX() + " " + koordinaatit.getY());
-                GL11.glVertex2f(koordinaatit.getX(), koordinaatit.getY());
+                double[] koordinaattiTaulukko = koordinaatti.getKoordinaatti();
+                GL11.glVertex2d(koordinaattiTaulukko[0], koordinaattiTaulukko[1]);
 //                GL11.glVertex2f(100 + 200, 100);
 //                GL11.glVertex2f(100 + 200, 100 + 200);
 //                GL11.glVertex2f(100, 100 + 200);
@@ -40,6 +45,10 @@ public class PainikeRenderoija implements Renderoija<Painike> {
         GL11.glEnd();
     }
 
+    /**
+     *
+     * @param komponentti
+     */
     @Override
     public void initialisoi(Painike komponentti) {
     }

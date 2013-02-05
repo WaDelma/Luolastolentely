@@ -1,6 +1,5 @@
 package aopkarja;
 
-import aopkarja.kasitttely.KasittelynHoitaja;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -20,7 +19,7 @@ public class LuolastolentelyTest {
     private Method method;
 
     @Before
-    public void setUp() {
+    public void saato() {
         peli = new Luolastolentely();
     }
 

@@ -1,11 +1,11 @@
 package aopkarja.kasittely.tapahtumat;
 
-import aopkarja.kasitttely.Tapahtuma;
 import aopkarja.Koordinaatti;
-import aopkarja.kasitttely.Tapahtuma;
+import aopkarja.kasittely.Tapahtuma;
 
 /**
- *
+ * {@link Tapahtuma}, jonka hiiri luo kun sen painiketta painetaan
+ * 
  * @author Antti
  */
 public class Painallus implements Tapahtuma {

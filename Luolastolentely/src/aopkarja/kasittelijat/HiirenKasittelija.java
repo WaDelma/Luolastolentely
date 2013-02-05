@@ -2,20 +2,24 @@ package aopkarja.kasittelijat;
 
 import aopkarja.Koordinaatti;
 import aopkarja.Luolastolentely;
+import aopkarja.kasittely.Kasittelija;
+import aopkarja.kasittely.KasittelyTyyppi;
 import aopkarja.kasittely.tapahtumat.Painallus;
-import aopkarja.kasitttely.Kasittelija;
-import aopkarja.kasitttely.KasittelyTyyppi;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 
 /**
- *
+ * Lukee ja lähettää hiiren aiheuttamia {@link aopkarja.kasittely.Tapahtuma} olioita.
+ * 
  * @author aopkarja
  */
 public class HiirenKasittelija {
 
     private Thread hiirenSaie;
     private boolean[] painikkeidenTilat;
+    /**
+     *
+     */
     public static final int POLLAUKSEN_AIKAVALI = 10;
     private TapahtumienKasittelija kasittelija;
 
@@ -24,7 +28,7 @@ public class HiirenKasittelija {
     }
 
     @Kasittelija(KasittelyTyyppi.KAYNNISTA)
-    public void kaynnnista() throws LWJGLException {
+    private void kaynnnista() throws LWJGLException {
         Mouse.create();
         painikkeidenTilat = new boolean[Mouse.getButtonCount()];
         hiirenSaie = new Thread() {
@@ -54,11 +58,19 @@ public class HiirenKasittelija {
         hiirenSaie.start();
     }
 
+    /**
+     *
+     */
     @Kasittelija(KasittelyTyyppi.LOPETA)
-    public void lopeta() {
+    private void lopeta() {
         Mouse.destroy();
     }
 
+    /**
+     *
+     * @param painike
+     * @return Painikkeen muuttumaton koodi muuttuvasta
+     */
     public static int getPainike(int painike) {
         return painike;
     }

@@ -1,15 +1,20 @@
-package aopkarja.kasitttely;
+package aopkarja.kasittely;
 
 import aopkarja.hoitajat.VirheidenHoitaja;
 import aopkarja.kasittely.tapahtumat.TyhjaTapahtuma;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
+ * Hoitaa {@link Kasittelija}n/t, jotka on lisätty siihen.
  *
  * @author aopkarja
  */
@@ -20,11 +25,11 @@ public class KasittelynHoitaja<T> {
     private static final Tapahtuma tyhjaTapahtuma = new TyhjaTapahtuma();
 
     public List<T> getKasittelijat() {
-        return kasittelijaOliot;
+        return Collections.unmodifiableList(kasittelijaOliot);
     }
 
     public KasittelynHoitaja() {
-        this.kasittelijaOliot = new ArrayList<>();
+        kasittelijaOliot = new ArrayList<>();
         kasittelijat = new HashMap<>();
     }
 
@@ -36,16 +41,29 @@ public class KasittelynHoitaja<T> {
         kasittele(kasittelijat.get(tyyppi), tapahtuma);
     }
 
+    /**
+     * Käsittelee tietyn tyyppisen {@link Kasittelija}n/t oliossa.
+     *
+     * @param tyyppi
+     * @param kasittelija
+     */
     public void kasittele(KasittelyTyyppi tyyppi, T kasittelija) {
         kasittele(tyyppi, kasittelija, tyhjaTapahtuma);
     }
 
+    /**
+     * Käsittelee tietyn tyyppisen tapahtuman {@link Kasittelija}n/t oliossa.
+     *
+     * @param tyyppi
+     * @param kasittelija
+     * @param tapahtuma
+     */
     public void kasittele(KasittelyTyyppi tyyppi, T kasittelija, Tapahtuma tapahtuma) {
         if (kasittelijat == null || kasittelijat.isEmpty()) {
             return;
         }
-        List<KasittelijaKapseli> lista = kasittelijat.get(tyyppi);     
-        if(lista == null){
+        List<KasittelijaKapseli> lista = kasittelijat.get(tyyppi);
+        if (lista == null) {
             return;
         }
         for (KasittelijaKapseli kapseli : lista) {
@@ -55,6 +73,12 @@ public class KasittelynHoitaja<T> {
         }
     }
 
+    /**
+     * Käsittelee tietyn tyyppiset tapahtuman {@link Kasittelija}t.
+     *
+     * @param kasittelijat
+     * @param tapahtuma
+     */
     public void kasittele(List<KasittelijaKapseli> kasittelijat, Tapahtuma tapahtuma) {
         if (kasittelijat == null || kasittelijat.isEmpty()) {
             return;
@@ -64,6 +88,11 @@ public class KasittelynHoitaja<T> {
         }
     }
 
+    /**
+     * Lisää {@link Kasittelija}n.
+     *
+     * @param kasittelija
+     */
     public void lisaa(T kasittelija) {
         int prioriteetti = 0;
         Class<?> luokka = kasittelija.getClass();
@@ -71,12 +100,12 @@ public class KasittelynHoitaja<T> {
         if (prioriteettiAnnotaation != null) {
             prioriteetti = prioriteettiAnnotaation.value();
         }
-        for (Method metodi : luokka.getMethods()) {
+        for (Method metodi : getMetodit(luokka)) {
             Kasittelija annotaatio = metodi.getAnnotation(Kasittelija.class);
             if (annotaatio != null) {
                 int valiaikainenPrioriteetti = prioriteetti;
                 if (metodi.isAnnotationPresent(Prioriteetti.class)) {
-                    valiaikainenPrioriteetti = metodi.getAnnotation(Prioriteetti.class).value();
+                    valiaikainenPrioriteetti += metodi.getAnnotation(Prioriteetti.class).value();
                 }
                 lisaa(annotaatio.value(), new KasittelijaKapseli(kasittelija, metodi, valiaikainenPrioriteetti));
             }
@@ -95,6 +124,12 @@ public class KasittelynHoitaja<T> {
         kasittelijat.put(tyyppi, kapselit);
     }
 
+    /**
+     * Palauttaa kaikki tietyn luokan {@link Kasittelija}t.
+     *
+     * @param luokka
+     * @return {@link Kasittelija} lista
+     */
     public List<T> getKasittelijat(Class luokka) {
         List<T> vastaus = new ArrayList<>();
         for (T o : kasittelijaOliot) {
@@ -105,20 +140,56 @@ public class KasittelynHoitaja<T> {
         return vastaus;
     }
 
-    public boolean lisatty(T moodi) {
-        return kasittelijaOliot.contains(moodi);
+    /**
+     *
+     * @param kasittelija
+     * @return Onko {@link Kasittelija} lisätty.
+     */
+    public boolean lisatty(T kasittelija) {
+        return kasittelijaOliot.contains(kasittelija);
     }
 
-    public static class KasittelijaKapseli<T> {
+    /**
+     * Tyhjentää lisätyt {@link Kasittelija}t.
+     *
+     */
+    public void tyhjenna() {
+        kasittelijaOliot = new ArrayList<>();
+        kasittelijat = new HashMap<>();
+    }
+    private Set<Method> metodit;
+
+    private void getMetoditRekursio(Class luokka) {
+        metodit.addAll(Arrays.asList(luokka.getDeclaredMethods()));
+        metodit.addAll(Arrays.asList(luokka.getMethods()));
+        Class yliLuokka = luokka.getSuperclass();
+        if(yliLuokka != null){
+            getMetoditRekursio(yliLuokka);
+        }
+    }
+
+    private Set<Method> getMetodit(Class luokka) {
+        metodit = new HashSet();
+        getMetoditRekursio(luokka);
+        return metodit;
+    }
+
+    /**
+     * Kapseli, jolla {@link Kasittelija}t tallennetaan.
+     *
+     * @param <T>
+     */
+    protected static class KasittelijaKapseli<T> {
 
         private final Method metodi;
         private final int prioriteetti;
         private final T olio;
         private boolean tapahtumiaKasitteleva;
 
-        public KasittelijaKapseli(T olio, Method metodi, int prioriteetti) {
+        private KasittelijaKapseli(T olio, Method metodi, int prioriteetti) {
             this.olio = olio;
             this.metodi = metodi;
+            metodi.setAccessible(true);
             this.prioriteetti = prioriteetti;
             Class<?>[] parametrit = metodi.getParameterTypes();
             if (parametrit.length > 1) {
@@ -132,6 +203,11 @@ public class KasittelynHoitaja<T> {
             }
         }
 
+        /**
+         * Käyttää kapselin sisällä olevaa {@link Kasittelija}a.
+         *
+         * @param tapahtuma Voi olla null
+         */
         public void kayta(Tapahtuma tapahtuma) {
             try {
                 if (tapahtumiaKasitteleva) {
@@ -145,6 +221,9 @@ public class KasittelynHoitaja<T> {
             }
         }
 
+        /**
+         * @return {@link Kasittelija}n prioriteetti.
+         */
         public int getPrioriteetti() {
             return prioriteetti;
         }

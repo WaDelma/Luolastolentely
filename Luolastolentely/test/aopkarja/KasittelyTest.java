@@ -1,9 +1,10 @@
 package aopkarja;
 
-import aopkarja.kasitttely.Kasittelija;
-import aopkarja.kasitttely.KasittelyTyyppi;
-import aopkarja.kasitttely.KasittelynHoitaja;
-import aopkarja.kasitttely.Prioriteetti;
+
+import aopkarja.kasittely.Kasittelija;
+import aopkarja.kasittely.KasittelyTyyppi;
+import aopkarja.kasittely.KasittelynHoitaja;
+import aopkarja.kasittely.Prioriteetti;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -19,7 +20,7 @@ public class KasittelyTest {
     private KasittelynHoitaja hoitaja;
 
     @Before
-    public void setUp() {
+    public void saato() {
         hoitaja = new KasittelynHoitaja();
         tehdyt = new ArrayList<>();
     }
@@ -76,6 +77,33 @@ public class KasittelyTest {
     }
 
     @Test
+    public void kasitteleMetodiJarjestyksessa() {
+        hoitaja.lisaa(new EpaPriorisoituTestiLuokka());
+        hoitaja.lisaa(new TestiLuokka());
+        hoitaja.kasittele(KasittelyTyyppi.AJA);
+        assertEquals("EpaPriorisoituTestiLuokkaAJA1", tehdyt.get(0));
+        assertEquals("TestiLuokkaAJA1", tehdyt.get(1));
+    }
+
+    @Test
+    public void kasitteleMetodiJarjestyksessa2() {
+        hoitaja.lisaa(new PriorisoituTestiLuokka());
+        hoitaja.lisaa(new TestiLuokka());
+        hoitaja.kasittele(KasittelyTyyppi.KAYNNISTA);
+        assertEquals("PriorisoituTestiLuokkaKAYNNISTA1", tehdyt.get(0));
+        assertEquals("TestiLuokkaKAYNNISTA1", tehdyt.get(1));
+        assertEquals("PriorisoituTestiLuokkaKAYNNISTA2", tehdyt.get(2));
+        assertEquals("TestiLuokkaKAYNNISTA2", tehdyt.get(3));
+    }
+
+    @Test
+    public void tyhjennysToimii() {
+        hoitaja.lisaa(new TestiLuokka());
+        hoitaja.tyhjenna();
+        assertEquals(0, hoitaja.getKasittelijat().size());
+    }
+
+    @Test
     public void tietyntyyppisetKasittelijat() {
         hoitaja.lisaa(new PriorisoituTestiLuokka());
         hoitaja.lisaa(new PriorisoituTestiLuokka());
@@ -89,6 +117,7 @@ public class KasittelyTest {
     public static class TestiLuokka {
 
         @Kasittelija(KasittelyTyyppi.KAYNNISTA)
+        @Prioriteetti(2)
         public void kaynnista() {
             add(KasittelyTyyppi.KAYNNISTA, 1);
         }
@@ -122,5 +151,12 @@ public class KasittelyTest {
 
     @Prioriteetti(-1)
     public static class EpaPriorisoituTestiLuokka extends TestiLuokka {
+
+        @Kasittelija(KasittelyTyyppi.AJA)
+        @Prioriteetti(2)
+        @Override
+        public void aja() {
+            add(KasittelyTyyppi.AJA, 1);
+        }
     }
 }
