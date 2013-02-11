@@ -40,12 +40,20 @@ public class Luolastolentely {
 
     private void initialisoi() {
         kasittelijat = new KasittelynHoitaja();
+        
+        //Tapahtumien käsittelijä
         TapahtumienKasittelija tapahtumanKasittelija = new TapahtumienKasittelija();
         kasittelijat.lisaa(tapahtumanKasittelija);
+        
+        //UI käsittelijä
         UIKasittelija uiKasittelija = new UIKasittelija(new Valikko(new ValikkoRenderoija(), null));
         tapahtumanKasittelija.lisaaKasittelija(uiKasittelija);
         kasittelijat.lisaa(uiKasittelija);
+        
+        //Hiiren käsittelijä
         kasittelijat.lisaa(new HiirenKasittelija(tapahtumanKasittelija));
+        
+        //Initialisoi käsittelijät
         kasittelijat.kasittele(KasittelyTyyppi.KAYNNISTA);
         kaynnissa = true;
     }

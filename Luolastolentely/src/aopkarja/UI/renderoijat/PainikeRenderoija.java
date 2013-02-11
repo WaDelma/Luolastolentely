@@ -18,7 +18,7 @@ public class PainikeRenderoija implements Renderoija<Painike> {
      */
     @Override
     public void renderoi(Painike komponentti) {
-        if (komponentti.painettu) {
+        if (komponentti.isPainettu()) {
             GL11.glColor3f(0f, 1.0f, 1.0f);
         } else {
             GL11.glColor3f(0f, 0f, 1.0f);

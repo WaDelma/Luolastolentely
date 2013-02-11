@@ -1,6 +1,7 @@
 package aopkarja;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,16 +14,17 @@ public class Alue implements Cloneable {
     private List<Koordinaatti> koordinaatit;
     private Koordinaatti keskipiste;
     //Koska olemme laiskoja ja emme laske, jos ei ole muuttunut.
-    private int muutettu;
+    private boolean[] muutettu;
     private double sisalla = -1;
     private double ulkona = -1;
 
     public Alue() {
         this.koordinaatit = new ArrayList<>();
+        muutettu = new boolean[3];
     }
 
     public void lisaa(Koordinaatti koordinaatti) {
-        muutettu = 0b11111111;
+        Arrays.fill(muutettu, true);
         koordinaatit.add(koordinaatti);
     }
 
@@ -31,7 +33,7 @@ public class Alue implements Cloneable {
     }
 
     public void setKoordinaatit(List<Koordinaatti> koordinaatit) {
-        muutettu = 0b11111111;
+        Arrays.fill(muutettu, true);
         this.koordinaatit.clear();
         for (Koordinaatti koordinaatti : koordinaatit) {
             this.koordinaatit.add(koordinaatti.clone());
@@ -40,8 +42,8 @@ public class Alue implements Cloneable {
     }
 
     public Koordinaatti getKeskipiste() {
-        if ((muutettu & 0b00100000) == 0b00100000 || keskipiste == null) {
-            muutettu &= 0b11011111;
+        if (muutettu[0] || keskipiste == null) {
+            muutettu[0] = false;
             keskipiste = new Koordinaatti();
             for (Koordinaatti k : koordinaatit) {
                 keskipiste.siirra(k);
@@ -55,8 +57,8 @@ public class Alue implements Cloneable {
     }
 
     public double getIsoimmanSisallaOlevanYmpyranSade() {
-        if ((muutettu & 0b01000000) == 0b01000000 || sisalla == -1) {
-            muutettu &= 0b10111111;
+        if (muutettu[1] || sisalla == -1) {
+            muutettu[1] = false;
             double min = Double.MAX_VALUE;
             for (Koordinaatti koordinaatti : koordinaatit) {
                 double cur = getKeskipiste().etaisyysToiseen(koordinaatti);
@@ -70,8 +72,8 @@ public class Alue implements Cloneable {
     }
 
     public double getPienimmanUlkonaOlevanYmpyranSade() {
-        if ((muutettu & 0b10000000) == 0b10000000 || ulkona == -1) {
-            muutettu &= 0b01111111;
+        if (muutettu[2] || ulkona == -1) {
+            muutettu[2] = false;
             double max = 0;
             for (Koordinaatti koordinaatti : koordinaatit) {
                 double cur = getKeskipiste().etaisyysToiseen(koordinaatti);

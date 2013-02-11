@@ -6,6 +6,7 @@ import aopkarja.UI.Renderoija;
 import aopkarja.UI.renderoijat.PainikeRenderoija;
 import aopkarja.hoitajat.LeikkaustenHoitaja;
 import aopkarja.kasittely.Tapahtuma;
+import aopkarja.kasittely.tapahtumat.HiiriTapahtuma;
 import aopkarja.kasittely.tapahtumat.Painallus;
 
 /**
@@ -21,7 +22,7 @@ public class Valikko extends Komponentti {
      */
     public Valikko(Renderoija renderoija, Komponentti omistaja) {
         super(renderoija, omistaja);
-        lisaa(new Painike(400, 400, 100, 25, new PainikeRenderoija(), this));
+        lisaa(new Painike("Aloita", 400, 400, 100, 25, new PainikeRenderoija(), this));
     }
 
     /**
@@ -31,7 +32,7 @@ public class Valikko extends Komponentti {
     @Override
     public void tapahtuu(Tapahtuma tapahtuma) {
         Object[] tieto = tapahtuma.getTieto();
-        if (tapahtuma instanceof Painallus) {
+        if (tapahtuma instanceof HiiriTapahtuma) {
             for (Komponentti komponentti : this.getLapset()) {
                 if (LeikkaustenHoitaja.leikkaako(komponentti.getAlue(), new Piste(null, null, (Koordinaatti) tieto[1]).getAlue())) {
                     System.out.println("leikkaa" + tapahtuma);

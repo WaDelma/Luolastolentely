@@ -4,13 +4,14 @@ import aopkarja.Koordinaatti;
 import aopkarja.Luolastolentely;
 import aopkarja.kasittely.Kasittelija;
 import aopkarja.kasittely.KasittelyTyyppi;
-import aopkarja.kasittely.tapahtumat.Painallus;
+import aopkarja.kasittely.tapahtumat.*;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 
 /**
- * Lukee ja lähettää hiiren aiheuttamia {@link aopkarja.kasittely.Tapahtuma} olioita.
- * 
+ * Lukee ja lähettää hiiren aiheuttamia {@link aopkarja.kasittely.Tapahtuma}
+ * olioita.
+ *
  * @author aopkarja
  */
 public class HiirenKasittelija {
@@ -45,6 +46,10 @@ public class HiirenKasittelija {
                         if (painettu && !painikkeidenTilat[painike]) {
                             Koordinaatti koordinaatit = new Koordinaatti(Mouse.getEventX(), Mouse.getEventY());
                             kasittelija.lisaa(new Painallus(getPainike(painike), koordinaatit));
+                        }
+                        if (!painettu && painikkeidenTilat[painike]) {
+                            Koordinaatti koordinaatit = new Koordinaatti(Mouse.getEventX(), Mouse.getEventY());
+                            kasittelija.lisaa(new PainalluksenPaasto(getPainike(painike), koordinaatit));
                         }
                         painikkeidenTilat[painike] = painettu;
                     }
