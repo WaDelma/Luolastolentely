@@ -36,7 +36,7 @@ public class UIKasittelija {
 
     /**
      * Asettaa moodin missä näyttö on.
-     * 
+     *
      * @param moodi
      * @return this
      */
@@ -70,22 +70,17 @@ public class UIKasittelija {
      */
     @Kasittelija(KasittelyTyyppi.AJA)
     private void aja() {
+        
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+
         if (moodi != edellinenMoodi) {
             moodit.kasittele(KasittelyTyyppi.LOPETA, edellinenMoodi);
             edellinenMoodi = moodi;
             moodit.kasittele(KasittelyTyyppi.KAYNNISTA, moodi);
         }
         moodit.kasittele(KasittelyTyyppi.AJA, moodi);
-//        GL11.glColor3f(1.0f, 1.0f, 0.0f);
-//        GL11.glBegin(GL11.GL_QUADS);
-//        {
-//            GL11.glVertex2f(100, 100);
-//            GL11.glVertex2f(100 + 200, 100);
-//            GL11.glVertex2f(100 + 200, 100 + 200);
-//            GL11.glVertex2f(100, 100 + 200);
-//        }
-//        GL11.glEnd();
+        moodit.kasittele(KasittelyTyyppi.RENDEROI, moodi);
+
         Display.update();
         Display.sync(60);
         if (Display.isCloseRequested()) {
@@ -115,5 +110,9 @@ public class UIKasittelija {
     @Kasittelija(KasittelyTyyppi.TAPAHTUMA)
     private void tee(Tapahtuma tapahtuma) {
         moodi.tapahtuu(tapahtuma);
+    }
+
+    public Komponentti getMoodi() {
+        return moodi;
     }
 }

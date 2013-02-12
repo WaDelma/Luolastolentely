@@ -18,6 +18,16 @@ public class Alue implements Cloneable {
     private double sisalla = -1;
     private double ulkona = -1;
 
+    @Override
+    public String toString() {
+        String kirjainjono = "Alue: " + koordinaatit + " ";
+        kirjainjono += keskipiste + ":" + muutettu[0] + " ";
+        kirjainjono += sisalla + ":" + muutettu[1] + " ";
+        kirjainjono += ulkona + ":" + muutettu[2];
+        
+        return  kirjainjono;
+    }
+
     public Alue() {
         this.koordinaatit = new ArrayList<>();
         muutettu = new boolean[3];
@@ -95,6 +105,20 @@ public class Alue implements Cloneable {
             return klooni;
         } catch (CloneNotSupportedException ex) {
             throw new InternalError();
+        }
+    }
+    
+    public void siirra(Koordinaatti koordinaatti) {
+        Arrays.fill(muutettu, true);
+        for (Koordinaatti k : koordinaatit) {
+            k.siirra(koordinaatti);
+        }
+    }
+
+    public void siirra(double... koordinaatti) {
+        Arrays.fill(muutettu, true);
+        for (Koordinaatti k : koordinaatit) {
+            k.siirra(koordinaatti);
         }
     }
 }

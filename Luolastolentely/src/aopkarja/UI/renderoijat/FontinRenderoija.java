@@ -23,7 +23,7 @@ public class FontinRenderoija implements Renderoija {
     public void renderoiChar(char ch) {
     }
 
-    public int getIndexCharille(char ch) {
+    public int getIndeksiCharille(char ch) {
         int index;
         if (Character.isDigit(ch)) {
             return 32 * 2 + "0123456789".indexOf(ch);

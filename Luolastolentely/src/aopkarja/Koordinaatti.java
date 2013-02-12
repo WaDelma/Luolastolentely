@@ -14,8 +14,8 @@ public class Koordinaatti implements Cloneable {
      *
      * @param koordinaatit
      */
-    public Koordinaatti(double... koordinaatit) {
-        koordinaatti = koordinaatit.clone();
+    public Koordinaatti(double... koordinaatti) {
+        this.koordinaatti = koordinaatti.clone();
     }
 
     /**
@@ -35,92 +35,92 @@ public class Koordinaatti implements Cloneable {
 
     /**
      *
-     * @param koordinaatit
+     * @param koordinaatti
      */
-    public void muuta(Koordinaatti koordinaatit) {
-        muuta(koordinaatit.koordinaatti);
+    public void muuta(Koordinaatti koordinaatti) {
+        muuta(koordinaatti.koordinaatti);
     }
 
     /**
      *
-     * @param koordinaatit
+     * @param koordinaatti
      */
-    public void muuta(double[] koordinaatit) {
-        if (this.koordinaatti == null || koordinaatit.length >= this.koordinaatti.length) {
-            this.koordinaatti = koordinaatit.clone();
+    public void muuta(double[] koordinaatti) {
+        if (this.koordinaatti == null || koordinaatti.length >= this.koordinaatti.length) {
+            this.koordinaatti = koordinaatti.clone();
             return;
         }
-        System.arraycopy(koordinaatit, 0, this.koordinaatti, 0, koordinaatit.length);
+        System.arraycopy(koordinaatti, 0, this.koordinaatti, 0, koordinaatti.length);
     }
 
     /**
      *
-     * @param koordinaatit
+     * @param koordinaatti
      */
-    public void siirra(Koordinaatti koordinaatit) {
-        siirra(koordinaatit.koordinaatti);
+    public void siirra(Koordinaatti koordinaatti) {
+        siirra(koordinaatti.koordinaatti);
     }
 
     /**
      *
-     * @param koordinaatit
+     * @param koordinaatti
      */
-    public void siirra(double... koordinaatit) {
+    public void siirra(double... koordinaatti) {
         if (this.koordinaatti == null) {
-            this.koordinaatti = new double[koordinaatit.length];
+            this.koordinaatti = new double[koordinaatti.length];
         }
-        if (koordinaatit.length > this.koordinaatti.length) {
-            double[] temp = new double[koordinaatit.length];
+        if (koordinaatti.length > this.koordinaatti.length) {
+            double[] temp = new double[koordinaatti.length];
             System.arraycopy(this.koordinaatti, 0, temp, 0, this.koordinaatti.length);
             this.koordinaatti = temp;
         }
-        for (int n = 0; n < koordinaatit.length; n++) {
-            this.koordinaatti[n] += koordinaatit[n];
+        for (int n = 0; n < koordinaatti.length; n++) {
+            this.koordinaatti[n] += koordinaatti[n];
         }
     }
 
     /**
      *
-     * @param koordinaatit
+     * @param koordinaatti
      * @return Etäisyys koordinaatista
      */
-    public double etaisyys(Koordinaatti koordinaatit) {
-        return etaisyys(koordinaatit.koordinaatti);
+    public double etaisyys(Koordinaatti koordinaatti) {
+        return etaisyys(koordinaatti.koordinaatti);
     }
 
     /**
      *
-     * @param koordinaatit
+     * @param koordinaatti
      * @return Etäisyys toiseeen koordinaatista
      */
-    public double etaisyysToiseen(Koordinaatti koordinaatit) {
-        return etaisyysToiseen(koordinaatit.koordinaatti);
+    public double etaisyysToiseen(Koordinaatti koordinaatti) {
+        return etaisyysToiseen(koordinaatti.koordinaatti);
     }
 
     /**
      *
-     * @param koordinaatit
+     * @param koordinaatti
      * @return Etäisyys koordinaatti listasta
      */
-    public double etaisyys(double[] koordinaatit) {
-        return Math.sqrt(etaisyysToiseen(koordinaatit));
+    public double etaisyys(double[] koordinaatti) {
+        return Math.sqrt(etaisyysToiseen(koordinaatti));
     }
 
     /**
      *
-     * @param koordinaatit
+     * @param koordinaatti
      * @return Etäisyys toiseeen koordinaatti listasta
      */
-    public double etaisyysToiseen(double[] koordinaatit) {
+    public double etaisyysToiseen(double[] koordinaatti) {
         if (this.koordinaatti == null) {
-            this.koordinaatti = new double[koordinaatit.length];
+            this.koordinaatti = new double[koordinaatti.length];
         }
-        if (koordinaatit.length > this.koordinaatti.length) {
-            System.arraycopy(this.koordinaatti, 0, new double[koordinaatit.length], 0, this.koordinaatti.length);
+        if (koordinaatti.length > this.koordinaatti.length) {
+            System.arraycopy(this.koordinaatti, 0, new double[koordinaatti.length], 0, this.koordinaatti.length);
         }
         double result = 0;
-        for (int n = 0; n < koordinaatit.length; n++) {
-            double temp = koordinaatit[n] - this.koordinaatti[n];
+        for (int n = 0; n < koordinaatti.length; n++) {
+            double temp = koordinaatti[n] - this.koordinaatti[n];
             result += temp * temp;
         }
         return result;

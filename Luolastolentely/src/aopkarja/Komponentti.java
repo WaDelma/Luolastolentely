@@ -39,9 +39,6 @@ public abstract class Komponentti {
      */
     public abstract void tapahtuu(Tapahtuma tapahtuma);
 
-    /**
-     *
-     */
     @Kasittelija(KasittelyTyyppi.KAYNNISTA)
     private void initialisoi() {
         renderoija.initialisoi(this);
@@ -50,15 +47,17 @@ public abstract class Komponentti {
         }
     }
 
-    /**
-     *
-     */
-    @Kasittelija(KasittelyTyyppi.AJA)
+    @Kasittelija(KasittelyTyyppi.RENDEROI)
     private void renderoi() {
         renderoija.renderoi(this);
         for (Komponentti komponentti : komponentit) {
             komponentti.renderoi();
         }
+    }
+    
+    @Kasittelija(KasittelyTyyppi.AJA)
+    protected void aja() {
+        
     }
 
     /**

@@ -1,8 +1,10 @@
 package aopkarja;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.junit.Assert.*;
@@ -19,12 +21,18 @@ public class LuolastolentelyTest {
     private Method method;
 
     @Before
-    public void saato() {
-        peli = new Luolastolentely();
+    public void saato() throws Exception {
+        try {
+            Constructor<Luolastolentely> c = Luolastolentely.class.getDeclaredConstructor();
+            c.setAccessible(true);
+            peli = c.newInstance();
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            throw new Exception(ex);
+        }
     }
 
     @Test
-    public void intialisointi() {
+    public void intialisointi() throws Exception {
         try {
             method = peli.getClass().getDeclaredMethod("initialisoi");
             method.setAccessible(true);
@@ -33,7 +41,7 @@ public class LuolastolentelyTest {
             field.setAccessible(true);
             assertNotNull(field.get(peli));
         } catch (NoSuchFieldException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(LuolastolentelyTest.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception(ex);
         }
     }
 }

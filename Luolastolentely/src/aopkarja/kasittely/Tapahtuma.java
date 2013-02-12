@@ -6,10 +6,34 @@ package aopkarja.kasittely;
  *
  * @author Antti
  */
-public interface Tapahtuma {
+public abstract class Tapahtuma {
+    
+    private Class<?>[] tallennettu;
+    private Tapahtuma tyyppi;
+    
+    public Tapahtuma(Tapahtuma tyyppi){
+        this.tyyppi = tyyppi;
+    }
+    
+    public Tapahtuma(){
+    }
 
     /*
-     * Tiedon rakenteen löydät toteuttavista luokista.
+     *
      */
-    public Object[] getTieto();
+    public abstract Object[] getTieto();
+    
+    public Class<?>[] getRakenne(){
+        if(tallennettu == null){
+            tallennettu = new Class<?>[getTieto().length];
+            for (int i = 0; i < tallennettu.length; i++) {
+                tallennettu[i] = getTieto()[i].getClass();
+            }
+        }
+        return tallennettu.clone();
+    }
+    
+    public Tapahtuma getTyyppi(){
+        return tyyppi;
+    }
 }

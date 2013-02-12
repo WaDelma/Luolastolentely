@@ -10,7 +10,7 @@ import aopkarja.kasittely.Tapahtuma;
  * 
  * @author aopkarja
  */
-public class TyhjaTapahtuma implements Tapahtuma{
+public class TyhjaTapahtuma extends Tapahtuma{
     private static final Object[] tyhjaData = new Object[0];
 
     @Override 

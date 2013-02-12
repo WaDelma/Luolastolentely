@@ -8,17 +8,15 @@ import aopkarja.kasittely.Tapahtuma;
  *
  * @author aopkarja
  */
-public abstract class HiiriTapahtuma implements Tapahtuma{
-    private final int painike;
+public class HiiriTapahtuma extends Tapahtuma{
     private final Koordinaatti koordinaatti;
 
-    public HiiriTapahtuma(int painike, Koordinaatti koordinaatti) {
-        this.painike = painike;
+    public HiiriTapahtuma(Koordinaatti koordinaatti) {
         this.koordinaatti = koordinaatti;
     }
 
     @Override
     public Object[] getTieto() {
-        return new Object[]{painike, koordinaatti};
+        return new Object[]{koordinaatti};
     }
 }

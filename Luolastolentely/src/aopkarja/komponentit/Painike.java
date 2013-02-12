@@ -4,7 +4,6 @@ import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
 import aopkarja.UI.Renderoija;
 import aopkarja.kasittely.Tapahtuma;
-import aopkarja.kasittely.tapahtumat.PainalluksenPaasto;
 import aopkarja.kasittely.tapahtumat.Painallus;
 
 /**
@@ -40,13 +39,16 @@ public class Painike extends Komponentti {
 
     @Override
     public void tapahtuu(Tapahtuma tapahtuma) {
+        Object[] tieto = tapahtuma.getTieto();
         if (tapahtuma instanceof Painallus) {
-            if (tapahtuma.getTieto()[0].equals(0)) {
-                painettu = true;
-            }
-        } else if (tapahtuma instanceof PainalluksenPaasto) {
-            if (tapahtuma.getTieto()[0].equals(0)) {
-                painettu = false;
+            if (tieto[0].equals(Boolean.TRUE)) {
+                if (tieto[1].equals(0)) {
+                    painettu = true;
+                }
+            } else {
+                if (tieto[1].equals(0)) {
+                    painettu = false;
+                }
             }
         }
     }

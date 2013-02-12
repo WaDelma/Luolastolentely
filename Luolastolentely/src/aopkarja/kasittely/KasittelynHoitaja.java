@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Hoitaa {@link Kasittelija}n/t, jotka on lisätty siihen.
@@ -37,8 +36,20 @@ public class KasittelynHoitaja<T> {
         kasittele(kasittelijat.get(tyyppi), tyhjaTapahtuma);
     }
 
+    public void kasittele(Kasittely<T> kasittely) {
+        for (T t : kasittelijaOliot) {
+            kasittely.tee(t);
+        }
+    }
+
     public void kasittele(KasittelyTyyppi tyyppi, Tapahtuma tapahtuma) {
         kasittele(kasittelijat.get(tyyppi), tapahtuma);
+    }
+
+    public void kasittele(Class<T> luokka, Kasittely<T> kasittely) {
+        for (T t : getKasittelijat(luokka)) {
+            kasittely.tee(t);
+        }
     }
 
     /**
@@ -130,7 +141,7 @@ public class KasittelynHoitaja<T> {
      * @param luokka
      * @return {@link Kasittelija} lista
      */
-    public List<T> getKasittelijat(Class luokka) {
+    public List<T> getKasittelijat(Class<T> luokka) {
         List<T> vastaus = new ArrayList<>();
         for (T o : kasittelijaOliot) {
             if (luokka.equals(o.getClass())) {
@@ -163,7 +174,7 @@ public class KasittelynHoitaja<T> {
         metodit.addAll(Arrays.asList(luokka.getDeclaredMethods()));
         metodit.addAll(Arrays.asList(luokka.getMethods()));
         Class yliLuokka = luokka.getSuperclass();
-        if(yliLuokka != null){
+        if (yliLuokka != null) {
             getMetoditRekursio(yliLuokka);
         }
     }
