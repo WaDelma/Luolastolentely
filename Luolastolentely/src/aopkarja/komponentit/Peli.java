@@ -1,8 +1,8 @@
 package aopkarja.komponentit;
 
 import aopkarja.Komponentti;
-import aopkarja.UI.Renderoija;
-import aopkarja.UI.renderoijat.PelaajaRenderoija;
+import aopkarja.kasittely.UI.Renderoija;
+import aopkarja.kasittely.UI.renderoijat.PelaajaRenderoija;
 import aopkarja.kasittely.Tapahtuma;
 
 /**

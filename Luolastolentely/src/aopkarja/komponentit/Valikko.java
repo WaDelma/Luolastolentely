@@ -2,8 +2,8 @@ package aopkarja.komponentit;
 
 import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
-import aopkarja.UI.Renderoija;
-import aopkarja.UI.renderoijat.PainikeRenderoija;
+import aopkarja.kasittely.UI.Renderoija;
+import aopkarja.kasittely.UI.renderoijat.PainikeRenderoija;
 import aopkarja.hoitajat.LeikkaustenHoitaja;
 import aopkarja.kasittely.Tapahtuma;
 import aopkarja.kasittely.tapahtumat.HiiriTapahtuma;

@@ -1,4 +1,4 @@
-package aopkarja.kasittelijat;
+package aopkarja.kasittelijat.fysiikka;
 
 import aopkarja.Koordinaatti;
 import aopkarja.kasittelijat.fysiikka.FyysinenKappale;

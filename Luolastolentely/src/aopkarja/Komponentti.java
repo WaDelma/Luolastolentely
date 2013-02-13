@@ -1,6 +1,6 @@
 package aopkarja;
 
-import aopkarja.UI.Renderoija;
+import aopkarja.kasittely.UI.Renderoija;
 import aopkarja.kasittely.Kasittelija;
 import aopkarja.kasittely.KasittelyTyyppi;
 import aopkarja.kasittely.Tapahtuma;

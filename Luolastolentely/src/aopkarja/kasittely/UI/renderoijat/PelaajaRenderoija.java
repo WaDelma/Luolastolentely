@@ -1,9 +1,9 @@
 
-package aopkarja.UI.renderoijat;
+package aopkarja.kasittely.UI.renderoijat;
 
 import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
-import aopkarja.UI.Renderoija;
+import aopkarja.kasittely.UI.Renderoija;
 import org.lwjgl.opengl.GL11;
 
 /**

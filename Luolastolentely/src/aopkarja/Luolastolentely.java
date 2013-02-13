@@ -1,9 +1,9 @@
 package aopkarja;
 
-import aopkarja.UI.UIKasittelija;
-import aopkarja.UI.renderoijat.ValikkoRenderoija;
+import aopkarja.kasittely.UI.UIKasittelija;
+import aopkarja.kasittely.UI.renderoijat.ValikkoRenderoija;
 import aopkarja.hoitajat.VirheidenHoitaja;
-import aopkarja.kasittelijat.FysiikanKasittelija;
+import aopkarja.kasittelijat.fysiikka.FysiikanKasittelija;
 import aopkarja.kasittelijat.HiiriSaie;
 import aopkarja.kasittelijat.NappaimistoSaie;
 import aopkarja.kasittelijat.SisaantulonKasittelija;

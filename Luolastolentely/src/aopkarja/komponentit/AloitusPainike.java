@@ -2,10 +2,10 @@ package aopkarja.komponentit;
 
 import aopkarja.Komponentti;
 import aopkarja.Luolastolentely;
-import aopkarja.UI.Renderoija;
-import aopkarja.UI.UIKasittelija;
-import aopkarja.UI.renderoijat.PeliRenderoija;
-import aopkarja.kasittelijat.FysiikanKasittelija;
+import aopkarja.kasittely.UI.Renderoija;
+import aopkarja.kasittely.UI.UIKasittelija;
+import aopkarja.kasittely.UI.renderoijat.PeliRenderoija;
+import aopkarja.kasittelijat.fysiikka.FysiikanKasittelija;
 import aopkarja.kasittely.Kasittely;
 import aopkarja.kasittely.Tapahtuma;
 

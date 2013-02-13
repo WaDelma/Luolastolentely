@@ -1,4 +1,4 @@
-package aopkarja.UI;
+package aopkarja.kasittely.UI;
 
 import aopkarja.Komponentti;
 
