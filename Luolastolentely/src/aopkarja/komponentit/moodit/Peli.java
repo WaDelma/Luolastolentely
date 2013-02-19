@@ -40,6 +40,7 @@ public class Peli extends Moodi {
         for (int i = 0; i < 10; i++) {
             Kivi kivi = new Kivi(new KiviRenderoija(), this);
             kivi.getAlue().skaalaa(5 + satunnainen.nextInt(4));
+            kivi.getAlue().kierra(satunnainen.nextDouble(), 0, 1);
             kivi.getAlue().siirra(new Koordinaatti(20 + satunnainen.nextInt(500), 20 + satunnainen.nextInt(500)));
             lisaa(kivi);
         }

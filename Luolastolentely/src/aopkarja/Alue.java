@@ -131,24 +131,26 @@ public class Alue implements Cloneable {
     }
 
     public void kierra(double maaraProsentteina, int aste1, int aste2) {
-        Koordinaatti vastaKeskipiste = getKeskipiste().vastaKohta();
+        Koordinaatti keski =  getKeskipiste();
+        Koordinaatti vastaKeskipiste = keski.vastaKohta();
+        
         int max = Math.max(aste1, aste2);
         boolean[] skippaa = new boolean[max + 1];
         Arrays.fill(skippaa, true);
         skippaa[aste1] = false;
         skippaa[aste2] = false;
+        
         double kaanto = maaraProsentteina * TAU;
         for (Koordinaatti k : koordinaatit) {
-            //k.siirra(vastaKeskipiste, skippaa);
+            k.siirra(vastaKeskipiste, skippaa);
+            double[] temp = k.getKoordinaatti();
+            double uusiKulma = kaanto + Math.atan2(temp[aste2], temp[aste1]);
+            double sade = k.etaisyys(keski, skippaa);
             double[] uusi = new double[max + 1];
-            uusi[aste1] = k.getKoordinaatti()[aste1];
-            uusi[aste2] = k.getKoordinaatti()[aste2];
-            double sade = keskipiste.etaisyys(uusi);
-            uusi[aste1] = Math.cos(kaanto) * sade;
-            uusi[aste2] = Math.sin(kaanto) * sade;
-            k.muuta(keskipiste.getKoordinaatti(), skippaa);
-            k.siirra(uusi, skippaa);
-            //k.siirra(keskipiste, skippaa);
+            uusi[aste1] = Math.cos(uusiKulma) * sade;
+            uusi[aste2] = Math.sin(uusiKulma) * sade;
+            k.muuta(keski, skippaa);
+            k.siirra(uusi);
         }
     }
 

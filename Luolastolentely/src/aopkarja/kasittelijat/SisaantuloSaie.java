@@ -24,8 +24,7 @@ public abstract class SisaantuloSaie extends Thread {
     public int getPollauksenAikavali() {
         return 10;
     }
-    
-    
+
     @Override
     public final void run() {
         try {

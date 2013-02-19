@@ -6,7 +6,7 @@ import aopkarja.kasittely.KasittelyTyyppi;
 
 /**
  * Kasitelee sisaatuloja.
- * 
+ *
  * @author aopkarja
  */
 public class SisaantulonKasittelija {

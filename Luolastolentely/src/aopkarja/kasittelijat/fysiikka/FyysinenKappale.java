@@ -13,6 +13,7 @@ public class FyysinenKappale {
     private final Alue alue;
     private double paino;
     private double kitka;
+    private boolean poistettu;
 
     public double getPaino() {
         return paino;
@@ -49,5 +50,13 @@ public class FyysinenKappale {
 
     public void setKitka(double kitka) {
         this.kitka = kitka;
+    }
+
+    public void poista() {
+        poistettu = true;
+    }
+    
+    public boolean isPoistettu(){
+        return poistettu;
     }
 }

@@ -22,7 +22,7 @@ import java.util.List;
 public class Luolastolentely {
 
     private static volatile Luolastolentely instanssi;
-    private boolean kaynnissa;
+    private static volatile boolean kaynnissa;
     private KasittelynHoitaja kasittelijat;
 
     /**
@@ -48,6 +48,8 @@ public class Luolastolentely {
     }
 
     private void initialisoi() {
+        kaynnissa = true;
+        
         kasittelijat = new KasittelynHoitaja();
 
         //Tapahtumien käsittelijä
@@ -70,7 +72,6 @@ public class Luolastolentely {
 
         //Initialisoi käsittelijät
         kasittelijat.kasittele(KasittelyTyyppi.KAYNNISTA);
-        kaynnissa = true;
     }
 
     private void aja() {

@@ -42,6 +42,10 @@ public class Koordinaatti implements Cloneable {
         muuta(koordinaatti.koordinaatti);
     }
 
+    public void muuta(Koordinaatti koordinaatti, boolean[] skippaa) {
+        muuta(koordinaatti.koordinaatti, skippaa);
+    }
+
     /**
      *
      * @param koordinaatti
@@ -77,7 +81,7 @@ public class Koordinaatti implements Cloneable {
     public void siirra(Koordinaatti koordinaatti, boolean[] skippaa) {
         siirra(koordinaatti.koordinaatti, skippaa);
     }
-    
+
     public void siirra(Koordinaatti koordinaatti) {
         siirra(koordinaatti.koordinaatti, new boolean[0]);
     }
@@ -112,7 +116,11 @@ public class Koordinaatti implements Cloneable {
      * @return Etäisyys koordinaatista
      */
     public double etaisyys(Koordinaatti koordinaatti) {
-        return etaisyys(koordinaatti.koordinaatti);
+        return etaisyys(koordinaatti.koordinaatti, new boolean[]{});
+    }
+
+    public double etaisyys(Koordinaatti koordinaatti, boolean[] skippaa) {
+        return etaisyys(koordinaatti.koordinaatti, skippaa);
     }
 
     /**
@@ -121,7 +129,7 @@ public class Koordinaatti implements Cloneable {
      * @return Etäisyys toiseeen koordinaatista
      */
     public double etaisyysToiseen(Koordinaatti koordinaatti) {
-        return etaisyysToiseen(koordinaatti.koordinaatti);
+        return etaisyysToiseen(koordinaatti.koordinaatti, new boolean[]{});
     }
 
     /**
@@ -130,7 +138,11 @@ public class Koordinaatti implements Cloneable {
      * @return Etäisyys koordinaatti listasta
      */
     public double etaisyys(double[] koordinaatti) {
-        return Math.sqrt(etaisyysToiseen(koordinaatti));
+        return etaisyys(koordinaatti, new boolean[]{});
+    }
+
+    public double etaisyys(double[] koordinaatti, boolean[] skippaa) {
+        return Math.sqrt(etaisyysToiseen(koordinaatti, skippaa));
     }
 
     /**
@@ -138,7 +150,7 @@ public class Koordinaatti implements Cloneable {
      * @param koordinaatti
      * @return Etäisyys toiseeen koordinaatti listasta
      */
-    public double etaisyysToiseen(double[] koordinaatti) {
+    public double etaisyysToiseen(double[] koordinaatti, boolean[] skippaa) {
         if (this.koordinaatti == null) {
             this.koordinaatti = new double[koordinaatti.length];
         }
@@ -147,8 +159,10 @@ public class Koordinaatti implements Cloneable {
         }
         double result = 0;
         for (int n = 0; n < koordinaatti.length; n++) {
-            double temp = koordinaatti[n] - this.koordinaatti[n];
-            result += temp * temp;
+            if (n >= skippaa.length || !skippaa[n]) {
+                double temp = koordinaatti[n] - this.koordinaatti[n];
+                result += temp * temp;
+            }
         }
         return result;
     }
@@ -252,7 +266,7 @@ public class Koordinaatti implements Cloneable {
     }
 
     public void yksikoi() {
-        double etaisyys = this.etaisyys(new double[koordinaatti.length]);
+        double etaisyys = this.etaisyys(new double[koordinaatti.length], new boolean[]{});
         for (int i = 0; i < koordinaatti.length; i++) {
             koordinaatti[i] /= etaisyys;
         }

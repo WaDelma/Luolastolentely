@@ -43,6 +43,7 @@ public class EnergiaPallo extends Komponentti {
                 }
             });
             this.getOmistaja().poista(this);
+            fyysinenKappale.poista();
         }
     }
 }

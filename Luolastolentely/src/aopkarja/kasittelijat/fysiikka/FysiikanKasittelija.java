@@ -38,6 +38,9 @@ public class FysiikanKasittelija {
                 kohde.getVoima().kerro(1 - kitka);
 
                 kohde.getAlue().siirra(kohde.getVoima());
+                if (!kohde.isPainoton()) {
+                    kohde.getVoima().siirra(painovoima);
+                }
                 Alue alue = LeikkaustenHoitaja.leikkaako(kohde.getAlue(), getAlueet(kasittelija.getKasittelijat()));
                 if (alue != null) {
                     Koordinaatti suunta = kohde.getAlue().getKeskipiste();
@@ -47,8 +50,6 @@ public class FysiikanKasittelija {
                     kohde.getAlue().siirra(suunta);
                     kohde.getVoima().kerro(1 - alueenKappale(alue, kasittelija.getKasittelijat()).getKitka());
                     tapahtumienKasittelija.lisaa(new TormaysTapahtuma(kohde, suunta));
-                } else if (!kohde.isPainoton()) {
-                    kohde.getVoima().siirra(painovoima);
                 }
             }
         });
@@ -66,6 +67,9 @@ public class FysiikanKasittelija {
     public List<Alue> getAlueet(List<FyysinenKappale> lista) {
         List<Alue> result = new ArrayList<>();
         for (FyysinenKappale kappale : lista) {
+            if(kappale.isPoistettu()){
+                continue;
+            }
             result.add(kappale.getAlue());
         }
         return result;
