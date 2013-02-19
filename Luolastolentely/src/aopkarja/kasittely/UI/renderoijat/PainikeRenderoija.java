@@ -2,12 +2,13 @@ package aopkarja.kasittely.UI.renderoijat;
 
 import aopkarja.Koordinaatti;
 import aopkarja.kasittely.UI.Renderoija;
+import aopkarja.kasittely.UI.Vari;
 import aopkarja.komponentit.Painike;
 import org.lwjgl.opengl.GL11;
 
 /**
  * Renderöi painikkeen.
- * 
+ *
  * @author aopkarja
  */
 public class PainikeRenderoija extends Renderoija<Painike> {
@@ -19,9 +20,10 @@ public class PainikeRenderoija extends Renderoija<Painike> {
     @Override
     public void renderoi(Painike komponentti) {
         if (komponentti.isPainettu()) {
-            GL11.glColor3f(0f, 1.0f, 1.0f);
+            GL11.glColor3d(0, 1.0, 1.0);
         } else {
-            GL11.glColor3f(0f, 0f, 1.0f);
+            Vari vari = komponentti.getVari();
+            GL11.glColor3d(vari.getPunainen(), vari.getVihrea(), vari.getSininen());
         }
 //        GL11.glBegin(GL11.GL_QUADS);
 //        {
@@ -44,5 +46,4 @@ public class PainikeRenderoija extends Renderoija<Painike> {
         }
         GL11.glEnd();
     }
-    
 }

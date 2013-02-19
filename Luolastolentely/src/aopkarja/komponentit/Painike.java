@@ -4,6 +4,7 @@ import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
 import aopkarja.kasittely.Tapahtuma;
 import aopkarja.kasittely.UI.Renderoija;
+import aopkarja.kasittely.UI.Vari;
 import aopkarja.kasittely.tapahtumat.Painallus;
 
 /**
@@ -13,12 +14,13 @@ import aopkarja.kasittely.tapahtumat.Painallus;
  */
 public class Painike extends Komponentti {
 
+    private Vari vari;
     private boolean painettu;
     private String teksti;
 
-    public Painike(Renderoija<Painike> renderoija, Komponentti omistaja) {
-        super(renderoija, omistaja);
-    }
+//    public Painike(Renderoija<Painike> renderoija, Komponentti omistaja) {
+//        super(renderoija, omistaja);
+//    }
 
     public Painike(String teksti, int x, int y, int leveys, int korkeus, Renderoija renderoija, Komponentti omistaja) {
         super(renderoija, omistaja);
@@ -27,6 +29,7 @@ public class Painike extends Komponentti {
         getAlue().lisaa(new Koordinaatti(x + leveys, y));
         getAlue().lisaa(new Koordinaatti(x + leveys, y + korkeus));
         getAlue().lisaa(new Koordinaatti(x, y + korkeus));
+        vari = new Vari(1, 1, 1);
     }
 
     public String getTeksti() {
@@ -37,6 +40,16 @@ public class Painike extends Komponentti {
         return painettu;
     }
 
+    
+    public Vari getVari() {
+        return vari;
+    }
+
+    public Painike setVari(Vari vari) {
+        this.vari = vari;
+        return this;
+    }
+    
     @Override
     public void tapahtuu(Tapahtuma tapahtuma) {
         Object[] tieto = tapahtuma.getTieto();

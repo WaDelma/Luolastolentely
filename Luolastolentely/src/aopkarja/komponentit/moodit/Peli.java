@@ -34,7 +34,7 @@ public class Peli extends Moodi {
             EnergiaPallo pallo = new EnergiaPallo(new EnergiaPalloRenderoija(), this);
             pallo.getAlue().siirra(new Koordinaatti(20 + satunnainen.nextInt(500), 20 + satunnainen.nextInt(500)));
             pallo.getAlue().skaalaa(5);
-            System.out.println(pallo);
+            //System.out.println(pallo);
             lisaa(pallo);
         }
         for (int i = 0; i < 10; i++) {
