@@ -1,7 +1,7 @@
 package aopkarja.kasittelijat;
 
 import aopkarja.Luolastolentely;
-import aopkarja.hoitajat.VirheidenHoitaja;
+import aopkarja.hoitajat.LokiHoitaja;
 import org.lwjgl.LWJGLException;
 
 /**
@@ -38,7 +38,7 @@ public abstract class SisaantuloSaie extends Thread {
                 }
             }
         } catch (LWJGLException ex) {
-            VirheidenHoitaja.ilmoita(ex);
+            LokiHoitaja.ilmoita(ex);
         } finally {
             lopeta();
         }

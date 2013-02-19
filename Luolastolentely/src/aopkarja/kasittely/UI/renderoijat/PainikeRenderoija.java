@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
  * 
  * @author aopkarja
  */
-public class PainikeRenderoija implements Renderoija<Painike> {
+public class PainikeRenderoija extends Renderoija<Painike> {
 
     /**
      *
@@ -44,12 +44,5 @@ public class PainikeRenderoija implements Renderoija<Painike> {
         }
         GL11.glEnd();
     }
-
-    /**
-     *
-     * @param komponentti
-     */
-    @Override
-    public void initialisoi(Painike komponentti) {
-    }
+    
 }

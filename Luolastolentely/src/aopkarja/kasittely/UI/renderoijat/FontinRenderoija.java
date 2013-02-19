@@ -8,7 +8,7 @@ import java.io.File;
  *
  * @author aopkarja
  */
-public class FontinRenderoija implements Renderoija {
+public class FontinRenderoija extends Renderoija {
 
     private final File file;
 
@@ -36,15 +36,5 @@ public class FontinRenderoija implements Renderoija {
         }else{
             return 32 * 2 + 11 + "()\"\',.!?-_:;".indexOf(ch);
         }
-    }
-
-    @Override
-    public void renderoi(Komponentti komponentti) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void initialisoi(Komponentti komponentti) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

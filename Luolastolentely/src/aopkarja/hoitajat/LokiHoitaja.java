@@ -4,9 +4,10 @@ package aopkarja.hoitajat;
  *
  * @author aopkarja
  */
-public class VirheidenHoitaja {
+public class LokiHoitaja {
 
     public enum Vari {
+
         RESETOINTI("\u001B[0m"),
         MUSTA("\u001B[30m"),
         PUNAINEN("\u001B[31m"),
@@ -26,8 +27,14 @@ public class VirheidenHoitaja {
             this.arvo = arvo;
         }
     }
-    
     private static boolean VARIT_PAALLA = true;
+
+    public static void ilmoita(Object o) {
+        StringBuilder rakentaja = new StringBuilder();
+        asetaVari(rakentaja, Vari.SININEN);
+        rakentaja.append(o);
+        System.out.println(rakentaja);
+    }
 
     public static void ilmoita(Exception e) {
         StringBuilder rakentaja = new StringBuilder();

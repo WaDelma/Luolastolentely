@@ -5,13 +5,18 @@ import aopkarja.kasittely.UI.Renderoija;
 import org.lwjgl.opengl.GL11;
 
 /**
+ * Renderöi valikon
  *
  * @author aopkarja
  */
-public class PeliRenderoija extends Renderoija {
+public class PelinLoppuRenderoija extends Renderoija {
 
+    /**
+     *
+     * @param komponentti
+     */
     @Override
     public void initialisoi(Komponentti komponentti) {
-        GL11.glClearColor(0.34f, 0.35f, 0.33f, 1.0f);
+        GL11.glClearColor(0.2f, 0.2f, 0.4f, 1.0f);
     }
 }

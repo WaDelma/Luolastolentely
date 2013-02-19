@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
  * 
  * @author aopkarja
  */
-public class ValikkoRenderoija implements Renderoija {
+public class ValikkoRenderoija extends Renderoija {
 
     /**
      *
@@ -18,14 +18,5 @@ public class ValikkoRenderoija implements Renderoija {
     @Override
     public void initialisoi(Komponentti komponentti) {
         GL11.glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
-    }
-
-    /**
-     *
-     * @param komponentti
-     */
-    @Override
-    public void renderoi(Komponentti komponentti) {
-        
     }
 }

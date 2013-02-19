@@ -1,17 +1,17 @@
 package aopkarja;
 
-import aopkarja.kasittely.UI.UIKasittelija;
-import aopkarja.kasittely.UI.renderoijat.ValikkoRenderoija;
-import aopkarja.hoitajat.VirheidenHoitaja;
-import aopkarja.kasittelijat.fysiikka.FysiikanKasittelija;
+import aopkarja.hoitajat.LokiHoitaja;
 import aopkarja.kasittelijat.HiiriSaie;
 import aopkarja.kasittelijat.NappaimistoSaie;
 import aopkarja.kasittelijat.SisaantulonKasittelija;
 import aopkarja.kasittelijat.TapahtumienKasittelija;
+import aopkarja.kasittelijat.fysiikka.FysiikanKasittelija;
 import aopkarja.kasittely.Kasittely;
 import aopkarja.kasittely.KasittelyTyyppi;
 import aopkarja.kasittely.KasittelynHoitaja;
-import aopkarja.komponentit.Valikko;
+import aopkarja.kasittely.UI.UIKasittelija;
+import aopkarja.kasittely.UI.renderoijat.ValikkoRenderoija;
+import aopkarja.komponentit.moodit.Valikko;
 import java.util.List;
 
 /**
@@ -35,9 +35,9 @@ public class Luolastolentely {
             instanssi.initialisoi();
             instanssi.aja();
         } catch (RuntimeException e) {
-            VirheidenHoitaja.ilmoita(e);
+            LokiHoitaja.ilmoita(e);
         } catch (Exception e) {
-            VirheidenHoitaja.ilmoita(e);
+            LokiHoitaja.ilmoita(e);
         } finally {
             instanssi.sulje();
         }
@@ -55,7 +55,7 @@ public class Luolastolentely {
         kasittelijat.lisaa(tapahtumanKasittelija);
 
         //UI käsittelijä
-        uiKasittelija = new UIKasittelija(new Valikko(new ValikkoRenderoija(), null));
+        uiKasittelija = new UIKasittelija(new Valikko(new ValikkoRenderoija()));
         tapahtumanKasittelija.lisaaKasittelija(uiKasittelija);
         kasittelijat.lisaa(uiKasittelija);
 
@@ -64,6 +64,9 @@ public class Luolastolentely {
 
         //Näppäimistön käsittelijä
         kasittelijat.lisaa(new SisaantulonKasittelija(new NappaimistoSaie(tapahtumanKasittelija)));
+        
+        //Fysiikan käsittelijä
+        kasittelijat.lisaa(new FysiikanKasittelija(tapahtumanKasittelija));
 
         //Initialisoi käsittelijät
         kasittelijat.kasittele(KasittelyTyyppi.KAYNNISTA);
@@ -101,8 +104,8 @@ public class Luolastolentely {
         return kaynnissa;
     }
     
-    public static <T> List<T> getKasittelijat(Class<T> c){
-        return getInstanssi().kasittelijat.getKasittelijat(c);
+    public <T> List<T> getKasittelijat(Class<T> c){
+        return kasittelijat.getKasittelijat(c);
     }
 
     public <T> void teeKasittelijoille(Class<T> luokka, Kasittely<T> kasittely) {

@@ -2,6 +2,8 @@ package aopkarja.kasittely.UI;
 
 import aopkarja.Komponentti;
 import aopkarja.Luolastolentely;
+import aopkarja.Moodi;
+import aopkarja.hoitajat.LokiHoitaja;
 import aopkarja.kasittely.Kasittelija;
 import aopkarja.kasittely.KasittelyTyyppi;
 import aopkarja.kasittely.KasittelynHoitaja;
@@ -21,16 +23,16 @@ import org.lwjgl.opengl.GL11;
 public class UIKasittelija {
 
     private KasittelynHoitaja<Komponentti> moodit;
-    private Komponentti moodi;
-    private Komponentti edellinenMoodi;
+    private Moodi uusiMoodi;
+    private Moodi moodi;
 
     /**
      *
      * @param moodi
      */
-    public UIKasittelija(Komponentti moodi) {
+    public UIKasittelija(Moodi moodi) {
         this.moodit = new KasittelynHoitaja();
-        this.moodi = moodi;
+        this.uusiMoodi = moodi;
         moodit.lisaa(moodi);
     }
 
@@ -40,11 +42,8 @@ public class UIKasittelija {
      * @param moodi
      * @return this
      */
-    public UIKasittelija setMoodi(Komponentti moodi) {
-        if (!moodit.lisatty(moodi)) {
-            moodit.lisaa(moodi);
-        }
-        this.moodi = moodi;
+    public UIKasittelija setMoodi(Moodi moodi) {
+        this.uusiMoodi = moodi;
         return this;
     }
 
@@ -70,12 +69,16 @@ public class UIKasittelija {
      */
     @Kasittelija(KasittelyTyyppi.AJA)
     private void aja() {
-        
+
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
-        if (moodi != edellinenMoodi) {
-            moodit.kasittele(KasittelyTyyppi.LOPETA, edellinenMoodi);
-            edellinenMoodi = moodi;
+        if (uusiMoodi != moodi) {
+            LokiHoitaja.ilmoita("Mode changed to " + uusiMoodi);
+            moodit.kasittele(KasittelyTyyppi.LOPETA, moodi);
+            moodi = uusiMoodi;
+            if (!moodit.lisatty(moodi)) {
+                moodit.lisaa(moodi);
+            }
             moodit.kasittele(KasittelyTyyppi.KAYNNISTA, moodi);
         }
         moodit.kasittele(KasittelyTyyppi.AJA, moodi);
@@ -109,10 +112,10 @@ public class UIKasittelija {
      */
     @Kasittelija(KasittelyTyyppi.TAPAHTUMA)
     private void tee(Tapahtuma tapahtuma) {
-        moodi.tapahtuu(tapahtuma);
+        uusiMoodi.tapahtuu(tapahtuma);
     }
 
     public Komponentti getMoodi() {
-        return moodi;
+        return uusiMoodi;
     }
 }

@@ -1,6 +1,6 @@
 package aopkarja.kasittelijat;
 
-import aopkarja.hoitajat.VirheidenHoitaja;
+import aopkarja.hoitajat.LokiHoitaja;
 import aopkarja.kasittely.Kasittelija;
 import aopkarja.kasittely.KasittelyTyyppi;
 
@@ -27,7 +27,7 @@ public class SisaantulonKasittelija {
         try {
             saie.join();
         } catch (InterruptedException ex) {
-            VirheidenHoitaja.ilmoita(ex);
+            LokiHoitaja.ilmoita(ex);
         }
     }
 }

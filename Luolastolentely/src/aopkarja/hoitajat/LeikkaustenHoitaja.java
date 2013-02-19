@@ -2,16 +2,23 @@ package aopkarja.hoitajat;
 
 import aopkarja.Alue;
 import aopkarja.Koordinaatti;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Auttaa alueiden leikkauksen havaitsemisessa
- * 
+ *
  * @author aopkarja
  */
 public class LeikkaustenHoitaja {
 
     public static boolean leikkaako(Alue alue1, Alue alue2) {
+        double etaisyys = alue1.getKeskipiste().etaisyys(alue2.getKeskipiste());
+        double max = alue1.getPienimmanUlkonaOlevanYmpyranSade()
+                + alue2.getPienimmanUlkonaOlevanYmpyranSade();
+        if (etaisyys > max) {
+            return false;
+        }
         List<Koordinaatti> koordinaatit1 = alue1.getKoordinaatit();
         List<Koordinaatti> koordinaatit2 = alue2.getKoordinaatit();
         if (koordinaatit1.size() == 4) {
@@ -29,9 +36,7 @@ public class LeikkaustenHoitaja {
                     return true;
             }
         }
-        return alue1.getKeskipiste().etaisyys(alue2.getKeskipiste())
-                < alue1.getIsoimmanSisallaOlevanYmpyranSade()
-                + alue2.getIsoimmanSisallaOlevanYmpyranSade();
+        return true;
     }
 
     private static int aabbTesti(List<Koordinaatti> ehkaAABB, List<Koordinaatti> toinen) {
@@ -55,6 +60,15 @@ public class LeikkaustenHoitaja {
         }
         return 0;
 
+    }
+
+    public static Alue leikkaako(Alue alue, List<Alue> alueet) {
+        for (Alue alueTemp : alueet) {
+            if (alue != alueTemp && leikkaako(alue, alueTemp)) {
+                return alueTemp;
+            }
+        }
+        return null;
     }
 
     private LeikkaustenHoitaja() {

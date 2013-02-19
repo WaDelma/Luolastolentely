@@ -12,13 +12,19 @@ public class FyysinenKappale {
     private Koordinaatti voima;
     private final Alue alue;
     private double paino;
+    private double kitka;
 
     public double getPaino() {
         return paino;
     }
 
+    public Koordinaatti getVoima() {
+        return voima;
+    }
+
     public FyysinenKappale(Alue alue) {
         this.alue = alue;
+        voima = new Koordinaatti();
     }
 
     public Alue getAlue() {
@@ -29,8 +35,19 @@ public class FyysinenKappale {
         this.paino = paino;
     }
 
-    //TODO:
-    public void lisaaPysyvaVoima(int... koordinaatti) {
-        //voima.siirra(koordinaatti);
+    public void lisaaVoimanLahde(Koordinaatti koordinaatti) {
+        voima.siirra(koordinaatti);
+    }
+
+    boolean isPainoton() {
+        return paino == 0;
+    }
+
+    double getKitka() {
+        return kitka;
+    }
+
+    public void setKitka(double kitka) {
+        this.kitka = kitka;
     }
 }

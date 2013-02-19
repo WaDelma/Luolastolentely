@@ -1,6 +1,6 @@
 package aopkarja.kasittely;
 
-import aopkarja.hoitajat.VirheidenHoitaja;
+import aopkarja.hoitajat.LokiHoitaja;
 import aopkarja.kasittely.tapahtumat.TyhjaTapahtuma;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -143,9 +143,9 @@ public class KasittelynHoitaja<T> {
      */
     public List<T> getKasittelijat(Class<T> luokka) {
         List<T> vastaus = new ArrayList<>();
-        for (T o : kasittelijaOliot) {
-            if (luokka.equals(o.getClass())) {
-                vastaus.add(o);
+        for (T olio : kasittelijaOliot) {
+            if (luokka.equals(olio.getClass())) {
+                vastaus.add(olio);
             }
         }
         return vastaus;
@@ -228,7 +228,7 @@ public class KasittelynHoitaja<T> {
                 }
             } catch (ReflectiveOperationException e) {
                 System.out.println(metodi);
-                VirheidenHoitaja.ilmoita(e);
+                LokiHoitaja.ilmoita(e);
             }
         }
 

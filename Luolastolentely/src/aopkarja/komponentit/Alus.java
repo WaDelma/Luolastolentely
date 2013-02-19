@@ -3,11 +3,14 @@ package aopkarja.komponentit;
 import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
 import aopkarja.Luolastolentely;
-import aopkarja.kasittely.UI.Renderoija;
+import aopkarja.Moodi;
+import aopkarja.kasittelijat.PeliTilanKasittelija;
 import aopkarja.kasittelijat.fysiikka.FysiikanKasittelija;
 import aopkarja.kasittelijat.fysiikka.FyysinenKappale;
 import aopkarja.kasittely.Kasittely;
 import aopkarja.kasittely.Tapahtuma;
+import aopkarja.kasittely.UI.Renderoija;
+import aopkarja.kasittely.tapahtumat.EnergianLisaysTapahtuma;
 import aopkarja.kasittely.tapahtumat.Painallus;
 
 /**
@@ -17,8 +20,11 @@ import aopkarja.kasittely.tapahtumat.Painallus;
 public class Alus extends Komponentti {
 
     private final FyysinenKappale fyysinenKappale;
+    private double energia = 50;
+    private int kuolemaAjastin = 200;
+    private boolean kuollut;
 
-    public Alus(Renderoija renderoija, Komponentti omistaja) {
+    public Alus(double x, double y, Renderoija renderoija, Komponentti omistaja) {
         super(renderoija, omistaja);
         fyysinenKappale = new FyysinenKappale(getAlue());
         Luolastolentely.getInstanssi().teeKasittelijoille(FysiikanKasittelija.class, new Kasittely<FysiikanKasittelija>() {
@@ -27,12 +33,15 @@ public class Alus extends Komponentti {
                 kasittelija.lisaa(fyysinenKappale);
             }
         });
-//        for(FysiikanKasittelija kasittelija: Luolastolentely.getKasittelijat(FysiikanKasittelija.class)){
-//            kasittelija.lisaa(fyysinenKappale);
-//        }
+        final Alus instanssi = this;
+        ((Moodi) getOmistaja()).teeKasittelijoille(PeliTilanKasittelija.class, new Kasittely<PeliTilanKasittelija>() {
+            @Override
+            public void tee(PeliTilanKasittelija kasittelija) {
+                kasittelija.lisaa(instanssi);
+            }
+        });
+        
         fyysinenKappale.setPaino(1.0);
-        int x = 10;
-        int y = 10;
         int leveys = 10;
         int korkeus = 10;
         getAlue().lisaa(new Koordinaatti(x, y));
@@ -43,35 +52,60 @@ public class Alus extends Komponentti {
 
     @Override
     public void tapahtuu(Tapahtuma tapahtuma) {
+        if (!aktiivinen()) {
+            return;
+        }
         Object[] tieto = tapahtuma.getTieto();
+        if (tapahtuma instanceof EnergianLisaysTapahtuma) {
+            energia += (double) tapahtuma.getTieto()[0];
+        }
         if (tapahtuma instanceof Painallus) {
             if (tieto[0].equals(Boolean.TRUE)) {
-                switch ((int) tieto[1]) {
-                    case 'w':
-                        fyysinenKappale.lisaaPysyvaVoima(0, 1);
-                        //this.getAlue().siirra(0, 1);
-                        break;
-                    case 'a':
-                        fyysinenKappale.lisaaPysyvaVoima(-1, 0);
-                        //this.getAlue().siirra(-1, 0);
-                        break;
-                    case 's':
-                        fyysinenKappale.lisaaPysyvaVoima(0, -1);
-                        //this.getAlue().siirra(0, -1);
-                        break;
-                    case 'd':
-                        fyysinenKappale.lisaaPysyvaVoima(1, 0);
-                        //this.getAlue().siirra(1, 0);
-                        break;
-                    default:
+                if (energia >= 0) {
+                    switch ((int) tieto[1]) {
+                        case 'w':
+                            fyysinenKappale.lisaaVoimanLahde(new Koordinaatti(0, 1));
+                            energia -= 0.5;
+                            break;
+                        case 'a':
+                            fyysinenKappale.lisaaVoimanLahde(new Koordinaatti(-1, 0));
+                            energia -= 0.5;
+                            break;
+                        case 's':
+                            fyysinenKappale.lisaaVoimanLahde(new Koordinaatti(0, -1));
+                            energia -= 0.5;
+                            break;
+                        case 'd':
+                            fyysinenKappale.lisaaVoimanLahde(new Koordinaatti(1, 0));
+                            energia -= 0.5;
+                            break;
+                        default:
+                    }
                 }
-            } else {
             }
         }
-        System.out.println(getAlue());
+    }
+
+    public double getEnergia() {
+        return energia;
     }
 
     @Override
-    public void aja() {
+    protected void aja() {
+        if (energia <= 0) {
+            kuolemaAjastin--;
+            if (kuolemaAjastin <= 0) {
+                kuole();
+            }
+        }
+    }
+
+    public void kuole() {
+        kuollut = true;
+    }
+
+    @Override
+    public boolean aktiivinen() {
+        return !kuollut;
     }
 }

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * Koordinaatti n:ssä asteessa.
+ *
  * @author Antti
  */
 public class Koordinaatti implements Cloneable {
@@ -53,19 +54,43 @@ public class Koordinaatti implements Cloneable {
         System.arraycopy(koordinaatti, 0, this.koordinaatti, 0, koordinaatti.length);
     }
 
-    /**
-     *
-     * @param koordinaatti
-     */
-    public void siirra(Koordinaatti koordinaatti) {
-        siirra(koordinaatti.koordinaatti);
+    public void muuta(double[] koordinaatti, boolean[] skippaa) {
+        if (this.koordinaatti == null || koordinaatti.length >= this.koordinaatti.length) {
+            this.koordinaatti = koordinaatti.clone();
+            return;
+        }
+        if (skippaa.length == 0) {
+            System.arraycopy(koordinaatti, 0, this.koordinaatti, 0, koordinaatti.length);
+        } else {
+            for (int i = 0; i < koordinaatti.length; i++) {
+                if (i >= skippaa.length || !skippaa[i]) {
+                    this.koordinaatti[i] = koordinaatti[i];
+                }
+            }
+        }
     }
 
     /**
      *
      * @param koordinaatti
      */
-    public void siirra(double... koordinaatti) {
+    public void siirra(Koordinaatti koordinaatti, boolean[] skippaa) {
+        siirra(koordinaatti.koordinaatti, skippaa);
+    }
+    
+    public void siirra(Koordinaatti koordinaatti) {
+        siirra(koordinaatti.koordinaatti, new boolean[0]);
+    }
+
+    /**
+     *
+     * @param koordinaatti
+     */
+    public void siirra(double[] koordinaatti) {
+        siirra(koordinaatti, new boolean[0]);
+    }
+
+    public void siirra(double[] koordinaatti, boolean[] skippaa) {
         if (this.koordinaatti == null) {
             this.koordinaatti = new double[koordinaatti.length];
         }
@@ -75,7 +100,9 @@ public class Koordinaatti implements Cloneable {
             this.koordinaatti = temp;
         }
         for (int n = 0; n < koordinaatti.length; n++) {
-            this.koordinaatti[n] += koordinaatti[n];
+            if (n >= skippaa.length || !skippaa[n]) {
+                this.koordinaatti[n] += koordinaatti[n];
+            }
         }
     }
 
@@ -150,9 +177,9 @@ public class Koordinaatti implements Cloneable {
     @Override
     public Koordinaatti clone() {
         try {
-            Koordinaatti klooni = (Koordinaatti)super.clone();
+            Koordinaatti klooni = (Koordinaatti) super.clone();
             System.arraycopy(this.koordinaatti, 0, klooni.koordinaatti, 0, this.koordinaatti.length);
-            return  klooni;
+            return klooni;
         } catch (CloneNotSupportedException ex) {
             throw new InternalError();
         }
@@ -167,8 +194,8 @@ public class Koordinaatti implements Cloneable {
      */
     public boolean valissako(Koordinaatti koordinaatti1, Koordinaatti koordinaatti2, boolean... skippaa) {
         for (int i = 0; i < koordinaatti.length; i++) {
-            if(skippaa.length > i){
-                if(skippaa[i]){
+            if (skippaa.length > i) {
+                if (skippaa[i]) {
                     continue;
                 }
             }
@@ -187,13 +214,51 @@ public class Koordinaatti implements Cloneable {
         }
         return false;
     }
-    
+
     @Override
-    public String toString(){
-        return Arrays.toString(koordinaatti);
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append('[');
+        for (double d : koordinaatti) {
+            builder.append(Math.round(d * 100) / 100.0);
+            builder.append(", ");
+        }
+        builder.deleteCharAt(builder.length() - 1);
+        builder.deleteCharAt(builder.length() - 1);
+        builder.append(']');
+        return builder.toString();
     }
 
     private int koordinaatteja() {
+        return koordinaatti.length;
+    }
+
+    public Koordinaatti vastaKohta() {
+        Koordinaatti result = new Koordinaatti(koordinaatti);
+        for (int n = 0; n < koordinaatti.length; n++) {
+            result.koordinaatti[n] = -result.koordinaatti[n];
+        }
+        return result;
+    }
+
+    public void kerro(double d) {
+        for (int i = 0; i < koordinaatti.length; i++) {
+            koordinaatti[i] *= d;
+        }
+    }
+
+    public void nollaa() {
+        Arrays.fill(koordinaatti, 0);
+    }
+
+    public void yksikoi() {
+        double etaisyys = this.etaisyys(new double[koordinaatti.length]);
+        for (int i = 0; i < koordinaatti.length; i++) {
+            koordinaatti[i] /= etaisyys;
+        }
+    }
+
+    public int getAste() {
         return koordinaatti.length;
     }
 }

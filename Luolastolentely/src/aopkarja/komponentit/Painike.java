@@ -2,8 +2,8 @@ package aopkarja.komponentit;
 
 import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
-import aopkarja.kasittely.UI.Renderoija;
 import aopkarja.kasittely.Tapahtuma;
+import aopkarja.kasittely.UI.Renderoija;
 import aopkarja.kasittely.tapahtumat.Painallus;
 
 /**

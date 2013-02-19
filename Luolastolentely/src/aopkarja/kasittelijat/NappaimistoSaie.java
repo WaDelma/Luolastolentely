@@ -4,7 +4,6 @@ import aopkarja.kasittely.tapahtumat.NappaimistoTapahtuma;
 import aopkarja.kasittely.tapahtumat.Painallus;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
 /**
  * Käsittelee näppäimistöä
@@ -50,7 +49,7 @@ public class NappaimistoSaie extends SisaantuloSaie {
 
     @Override
     public void lopeta() {
-        Mouse.destroy();
+        Keyboard.destroy();
     }
 
     /**
