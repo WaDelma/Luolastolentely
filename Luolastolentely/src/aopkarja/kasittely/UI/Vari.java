@@ -6,23 +6,20 @@ package aopkarja.kasittely.UI;
  * @author aopkarja
  */
 public class Vari {
-    private double r, g, b;
+    private double[] vari;
 
-    public Vari(double punainen, double vihrea, double sininen) {
-        this.r = punainen;
-        this.g = vihrea;
-        this.b = sininen;
+    public Vari(double... vari) {
+        this.vari = vari.clone();
+    }
+    
+    public Vari(){
+        vari = new double[0];
     }
 
-    public double getPunainen() {
-        return r;
-    }
-
-    public double getVihrea() {
-        return g;
-    }
-
-    public double getSininen() {
-        return b;
+    public double getVari(int n) {
+        if(n > vari.length){
+            return 0;
+        }
+        return vari[n];
     }
 }

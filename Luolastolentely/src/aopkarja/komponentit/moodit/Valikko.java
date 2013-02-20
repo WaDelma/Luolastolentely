@@ -2,8 +2,10 @@ package aopkarja.komponentit.moodit;
 
 import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
+import aopkarja.Luolastolentely;
 import aopkarja.Moodi;
-import aopkarja.hoitajat.LeikkaustenHoitaja;
+import aopkarja.kasittelijat.fysiikka.FysiikanKasittelija;
+import aopkarja.kasittelijat.fysiikka.LeikkaustenHoitaja;
 import aopkarja.kasittely.Tapahtuma;
 import aopkarja.kasittely.UI.Renderoija;
 import aopkarja.kasittely.UI.Vari;
@@ -28,6 +30,7 @@ public class Valikko extends Moodi {
      */
     public Valikko(Renderoija renderoija) {
         super(renderoija);
+        lisaa(new FysiikanKasittelija(Luolastolentely.getInstanssi().getTapahtumienKasittelija()));
         lisaa(new SiirtymaPainike("Aloita", Peli.class, PeliRenderoija.class, 400, 450, 100, 25, new PainikeRenderoija(), this).setVari(new Vari(0, 1, 0), new Vari(1, 0, 1)));
         lisaa(new LopetusPainike("Lopeta", 400, 400, 100, 25, new PainikeRenderoija(), this).setVari(new Vari(0, 0, 0), new Vari(1, 1, 1)));
     }

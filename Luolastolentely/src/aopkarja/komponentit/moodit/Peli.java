@@ -2,8 +2,10 @@ package aopkarja.komponentit.moodit;
 
 import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
+import aopkarja.Luolastolentely;
 import aopkarja.Moodi;
 import aopkarja.kasittelijat.PeliTilanKasittelija;
+import aopkarja.kasittelijat.fysiikka.FysiikanKasittelija;
 import aopkarja.kasittely.Tapahtuma;
 import aopkarja.kasittely.UI.Renderoija;
 import aopkarja.kasittely.UI.renderoijat.EnergiaPalloRenderoija;
@@ -28,6 +30,7 @@ public class Peli extends Moodi {
     public Peli(Renderoija renderoija) {
         super(renderoija);
         lisaa(new PeliTilanKasittelija());
+        lisaa(new FysiikanKasittelija(Luolastolentely.getInstanssi().getTapahtumienKasittelija()));
         lisaa(new Alus(100, 100, new PelaajaRenderoija(), this));
         Random satunnainen = new Random();
         for (int i = 0; i < 10; i++) {

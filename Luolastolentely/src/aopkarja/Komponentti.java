@@ -1,6 +1,8 @@
 package aopkarja;
 
+import aopkarja.kasittelijat.PeliTilanKasittelija;
 import aopkarja.kasittely.Kasittelija;
+import aopkarja.kasittely.Kasittely;
 import aopkarja.kasittely.KasittelyTyyppi;
 import aopkarja.kasittely.Tapahtuma;
 import aopkarja.kasittely.UI.Renderoija;
@@ -133,5 +135,9 @@ public abstract class Komponentti {
 
     public Vari getVari() {
         return new Vari(1, 1, 1);
+    }
+
+    public <T> void teeKasittelijoille(Class<T> luokka, Kasittely<T> kasittely) {
+        getOmistaja().teeKasittelijoille(luokka, kasittely);
     }
 }

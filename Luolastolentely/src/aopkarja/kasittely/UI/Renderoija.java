@@ -21,13 +21,12 @@ public abstract class Renderoija<T extends Komponentti> {
 
     public void renderoiAlue(Komponentti komponentti) {
         Vari vari = komponentti.getVari();
-        GL11.glColor3d(vari.getPunainen(), vari.getVihrea(), vari.getSininen());
+        GL11.glColor3d(vari.getVari(0), vari.getVari(1), vari.getVari(2));
         List<Koordinaatti> koordinaatit = komponentti.getAlue().getKoordinaatit();
         int n = 1;
         GL11.glBegin(GL11.GL_TRIANGLES);
         for (int i = 0; i < koordinaatit.size(); i++) {
-            double[] koordinaattiTaulukko = koordinaatit.get(i).getKoordinaatti();
-            GL11.glVertex2d(koordinaattiTaulukko[0], koordinaattiTaulukko[1]);
+            GL11.glVertex2d(koordinaatit.get(i).get(0), koordinaatit.get(i).get(1));
             if (n % 3 == 0) {
                 GL11.glEnd();
                 GL11.glBegin(GL11.GL_TRIANGLES);

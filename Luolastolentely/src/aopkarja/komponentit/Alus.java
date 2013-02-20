@@ -28,14 +28,14 @@ public class Alus extends Komponentti {
     public Alus(double x, double y, Renderoija renderoija, Komponentti omistaja) {
         super(renderoija, omistaja);
         fyysinenKappale = new FyysinenKappale(getAlue());
-        Luolastolentely.getInstanssi().teeKasittelijoille(FysiikanKasittelija.class, new Kasittely<FysiikanKasittelija>() {
+        getOmistaja().teeKasittelijoille(FysiikanKasittelija.class, new Kasittely<FysiikanKasittelija>() {
             @Override
             public void tee(FysiikanKasittelija kasittelija) {
                 kasittelija.lisaa(fyysinenKappale);
             }
         });
         final Alus instanssi = this;
-        ((Moodi) getOmistaja()).teeKasittelijoille(PeliTilanKasittelija.class, new Kasittely<PeliTilanKasittelija>() {
+        getOmistaja().teeKasittelijoille(PeliTilanKasittelija.class, new Kasittely<PeliTilanKasittelija>() {
             @Override
             public void tee(PeliTilanKasittelija kasittelija) {
                 kasittelija.lisaa(instanssi);

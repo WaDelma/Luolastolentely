@@ -24,6 +24,8 @@ public class Luolastolentely {
     private static volatile Luolastolentely instanssi;
     private static volatile boolean kaynnissa;
     private KasittelynHoitaja kasittelijat;
+    private UIKasittelija uiKasittelija;
+    private TapahtumienKasittelija tapahtumanKasittelija;
 
     /**
      *
@@ -42,18 +44,17 @@ public class Luolastolentely {
             instanssi.sulje();
         }
     }
-    private UIKasittelija uiKasittelija;
 
     private Luolastolentely() {
     }
 
     private void initialisoi() {
         kaynnissa = true;
-        
+
         kasittelijat = new KasittelynHoitaja();
 
         //Tapahtumien käsittelijä
-        TapahtumienKasittelija tapahtumanKasittelija = new TapahtumienKasittelija();
+        tapahtumanKasittelija = new TapahtumienKasittelija();
         kasittelijat.lisaa(tapahtumanKasittelija);
 
         //UI käsittelijä
@@ -66,9 +67,9 @@ public class Luolastolentely {
 
         //Näppäimistön käsittelijä
         kasittelijat.lisaa(new SisaantulonKasittelija(new NappaimistoSaie(tapahtumanKasittelija)));
-        
+
         //Fysiikan käsittelijä
-        kasittelijat.lisaa(new FysiikanKasittelija(tapahtumanKasittelija));
+
 
         //Initialisoi käsittelijät
         kasittelijat.kasittele(KasittelyTyyppi.KAYNNISTA);
@@ -105,12 +106,15 @@ public class Luolastolentely {
         return kaynnissa;
     }
     
-    public <T> List<T> getKasittelijat(Class<T> c){
+    public TapahtumienKasittelija getTapahtumienKasittelija() {
+        return tapahtumanKasittelija;
+    }
+
+    public <T> List<T> getKasittelijat(Class<T> c) {
         return kasittelijat.getKasittelijat(c);
     }
 
     public <T> void teeKasittelijoille(Class<T> luokka, Kasittely<T> kasittely) {
         kasittelijat.kasittele(luokka, kasittely);
     }
-    
 }

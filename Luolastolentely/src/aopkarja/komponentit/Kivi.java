@@ -24,7 +24,7 @@ public class Kivi extends Komponentti {
         fyysinenKappale = new FyysinenKappale(getAlue());
         fyysinenKappale.setPaino(0);
         fyysinenKappale.setKitka(0.7);
-        Luolastolentely.getInstanssi().teeKasittelijoille(FysiikanKasittelija.class, new Kasittely<FysiikanKasittelija>() {
+        getOmistaja().teeKasittelijoille(FysiikanKasittelija.class, new Kasittely<FysiikanKasittelija>() {
             @Override
             public void tee(FysiikanKasittelija kasittelija) {
                 kasittelija.lisaa(fyysinenKappale);

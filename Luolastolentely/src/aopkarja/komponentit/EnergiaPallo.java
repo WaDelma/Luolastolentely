@@ -27,7 +27,7 @@ public class EnergiaPallo extends Komponentti {
 
         fyysinenKappale = new FyysinenKappale(getAlue());
         fyysinenKappale.setPaino(0);
-        Luolastolentely.getInstanssi().teeKasittelijoille(FysiikanKasittelija.class, new Kasittely<FysiikanKasittelija>() {
+        getOmistaja().teeKasittelijoille(FysiikanKasittelija.class, new Kasittely<FysiikanKasittelija>() {
             @Override
             public void tee(FysiikanKasittelija kasittelija) {
                 kasittelija.lisaa(fyysinenKappale);
@@ -38,7 +38,7 @@ public class EnergiaPallo extends Komponentti {
     @Override
     public void tapahtuu(Tapahtuma tapahtuma) {
         if (tapahtuma instanceof TormaysTapahtuma && (tapahtuma.getTieto()[0] == fyysinenKappale || tapahtuma.getTieto()[1] == fyysinenKappale)) {
-            Luolastolentely.getInstanssi().teeKasittelijoille(TapahtumienKasittelija.class, new Kasittely<TapahtumienKasittelija>() {
+            getOmistaja().teeKasittelijoille(TapahtumienKasittelija.class, new Kasittely<TapahtumienKasittelija>() {
                 @Override
                 public void tee(TapahtumienKasittelija kasittelija) {
                     kasittelija.lisaa(new EnergianLisaysTapahtuma(10));

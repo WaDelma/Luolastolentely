@@ -186,8 +186,8 @@ public class Koordinaatti implements Cloneable {
      *
      * @return Kopio koordinaatti listasta
      */
-    public double[] getKoordinaatti() {
-        return koordinaatti.clone();
+    public double get(int n) {
+        return koordinaatti[n];
     }
 
     @Override

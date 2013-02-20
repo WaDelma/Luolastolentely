@@ -141,8 +141,7 @@ public class Alue implements Cloneable {
         double kaanto = maaraProsentteina * TAU;
         for (Koordinaatti k : koordinaatit) {
             k.siirra(vastaKeskipiste, skippaa);
-            double[] temp = k.getKoordinaatti();
-            double uusiKulma = kaanto + Math.atan2(temp[aste2], temp[aste1]);
+            double uusiKulma = kaanto + Math.atan2(k.get(aste2), k.get(aste1));
             double sade = k.etaisyys(keski, skippaa);
             double[] uusi = new double[max + 1];
             uusi[aste1] = Math.cos(uusiKulma) * sade;

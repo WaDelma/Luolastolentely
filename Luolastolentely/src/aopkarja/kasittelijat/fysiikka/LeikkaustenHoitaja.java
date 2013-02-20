@@ -1,4 +1,4 @@
-package aopkarja.hoitajat;
+package aopkarja.kasittelijat.fysiikka;
 
 import aopkarja.Alue;
 import aopkarja.Koordinaatti;
@@ -15,12 +15,15 @@ public class LeikkaustenHoitaja {
     private static final double TARKKUUS = 10;
 
     public static boolean leikkaako(Alue alue1, Alue alue2) {
+        //Jos tämä palaa emme ainakaan törmää. Ilman tätä FPS kuolee :P
         double etaisyys = alue1.getKeskipiste().etaisyys(alue2.getKeskipiste());
         double max = alue1.getPienimmanUlkonaOlevanYmpyranSade()
                 + alue2.getPienimmanUlkonaOlevanYmpyranSade();
         if (etaisyys > max) {
             return false;
         }
+
+        //Pitää tehdä tarkempi testi
         List<Koordinaatti> koordinaatit1 = alue1.getKoordinaatit();
         List<Koordinaatti> koordinaatit2 = alue2.getKoordinaatit();
         List<Koordinaatti> kolmio = new ArrayList<>();
@@ -56,16 +59,23 @@ public class LeikkaustenHoitaja {
 //        return true;
     }
 
-    private static boolean testaaKolmioJaKuvio(List<Koordinaatti> kolmio, List<Koordinaatti> kuvio) {
+    public static boolean testaaKolmioJaKuvio(List<Koordinaatti> kolmio, List<Koordinaatti> kuvio) {
         Koordinaatti eka = kuvio.get(0);
         for (int i = 1; i < kuvio.size(); i++) {
             Koordinaatti toka = kuvio.get(i);
+
+            //Laske kuinka usein testi tehdään
             Koordinaatti siirto = new Koordinaatti(toka);
             siirto.siirra(eka.vastaKohta());
             double etaisyys = siirto.etaisyys(toka);
             double maara = Math.floor(etaisyys / TARKKUUS);
             siirto.kerro(1 / maara);
+
+            //Suorita testit
             Koordinaatti ekaTemp = new Koordinaatti(eka);
+            if (pisteKolmioSisalla(ekaTemp, kolmio)) {
+                return true;
+            }
             for (int j = 0; j < maara; j++) {
                 ekaTemp.siirra(siirto);
                 if (pisteKolmioSisalla(ekaTemp, kolmio)) {
@@ -78,7 +88,7 @@ public class LeikkaustenHoitaja {
     }
 
     public static boolean pisteKolmioSisalla(Koordinaatti piste, List<Koordinaatti> kolmio) {
-        // Compute vectors       
+        //Laske vektorit  
         Koordinaatti vastaA = kolmio.get(0).vastaKohta();
         Koordinaatti CpoisA = new Koordinaatti(kolmio.get(1));
         CpoisA.siirra(vastaA);
@@ -87,20 +97,20 @@ public class LeikkaustenHoitaja {
         Koordinaatti PpoisA = new Koordinaatti(piste);
         PpoisA.siirra(vastaA);
 
-        // Compute dot products
+        //Laske pistetulot
         double tuloCC = CpoisA.pisteTulo(CpoisA);
         double tuloCB = CpoisA.pisteTulo(BpoisA);
         double tuloCP = CpoisA.pisteTulo(PpoisA);
         double tuloBB = BpoisA.pisteTulo(BpoisA);
         double tuloBP = BpoisA.pisteTulo(PpoisA);
 
-        // Compute barycentric coordinates
+        //Laske barysentriset koordinaatit
         double temp = 1 / (tuloCC * tuloBB - tuloCB * tuloCB);
         double u = (tuloBB * tuloCP - tuloCB * tuloBP) * temp;
         double v = (tuloCC * tuloBP - tuloCB * tuloCP) * temp;
 
-        // Check if point is in triangle
-        return (u >= 0) && (v >= 0) && (u + v < 1);
+        //Onko piste kolmiossa?
+        return (u >= 0) && (v >= 0) && (u + v <= 1);
 
     }
 

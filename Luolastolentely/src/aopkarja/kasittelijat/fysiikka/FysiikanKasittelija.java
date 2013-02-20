@@ -2,7 +2,6 @@ package aopkarja.kasittelijat.fysiikka;
 
 import aopkarja.Alue;
 import aopkarja.Koordinaatti;
-import aopkarja.hoitajat.LeikkaustenHoitaja;
 import aopkarja.kasittelijat.TapahtumienKasittelija;
 import aopkarja.kasittely.Kasittelija;
 import aopkarja.kasittely.Kasittely;

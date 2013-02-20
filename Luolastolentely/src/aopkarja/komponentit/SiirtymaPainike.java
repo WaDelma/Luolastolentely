@@ -34,7 +34,7 @@ public class SiirtymaPainike extends Painike {
     public void tapahtuu(Tapahtuma tapahtuma) {
         super.tapahtuu(tapahtuma);
         if (isPainettu()) {
-            Luolastolentely.getInstanssi().teeKasittelijoille(UIKasittelija.class, new Kasittely<UIKasittelija>() {
+            getOmistaja().teeKasittelijoille(UIKasittelija.class, new Kasittely<UIKasittelija>() {
                 @Override
                 public void tee(UIKasittelija kasittelija) {
                     try {

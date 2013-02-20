@@ -26,10 +26,9 @@ public class PelaajaRenderoija extends Renderoija<Alus> {
 //        }
 //        GL11.glEnd();
 
-        double[] keskipiste = alue.getKeskipiste().getKoordinaatti();
         double pieninYmparoivaYmpyra = alue.getPienimmanUlkonaOlevanYmpyranSade();
-        double x = keskipiste[0];
-        double y = keskipiste[1] + pieninYmparoivaYmpyra;
+        double x = alue.getKeskipiste().get(0);
+        double y = alue.getKeskipiste().get(1) + pieninYmparoivaYmpyra;
         GL11.glColor3f(0.0f, 0.0f, 1.0f);
         GL11.glBegin(GL11.GL_QUADS);
         {

@@ -43,7 +43,9 @@ public abstract class Moodi extends Komponentti {
         return split[split.length - 1].toUpperCase();
     }
 
+    @Override
     public <T> void teeKasittelijoille(Class<T> luokka, Kasittely<T> kasittely) {
         kasittelijat.kasittele(luokka, kasittely);
+        Luolastolentely.getInstanssi().teeKasittelijoille(luokka, kasittely);
     }
 }
