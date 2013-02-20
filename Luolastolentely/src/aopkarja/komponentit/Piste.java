@@ -21,6 +21,8 @@ public class Piste extends Komponentti {
     public Piste(Renderoija renderoija, Komponentti omistaja, Koordinaatti koordinaatit) {
         super(renderoija, omistaja);
         getAlue().lisaa(koordinaatit);
+        getAlue().lisaa(koordinaatit);
+        getAlue().lisaa(koordinaatit);
     }
 
     /**

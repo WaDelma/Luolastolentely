@@ -12,15 +12,17 @@ import aopkarja.kasittely.Tapahtuma;
 public class TormaysTapahtuma extends Tapahtuma{
     private final FyysinenKappale kohde;
     private final Koordinaatti suunta;
+    private final FyysinenKappale toinenKappale;
 
-    public TormaysTapahtuma(FyysinenKappale kohde, Koordinaatti suunta) {
+    public TormaysTapahtuma(FyysinenKappale kohde, FyysinenKappale toinenKappale, Koordinaatti suunta) {
         this.kohde = kohde;
         this.suunta = suunta;
+        this.toinenKappale = toinenKappale;
     }
 
     @Override
     public Object[] getTieto() {
-        return new Object[]{kohde, suunta};
+        return new Object[]{kohde, toinenKappale, suunta};
     }
     
 }

@@ -8,6 +8,8 @@ import java.util.Arrays;
  * @author Antti
  */
 public class Koordinaatti implements Cloneable {
+    
+    public static final Koordinaatti ORIGO = new Koordinaatti();
 
     private double[] koordinaatti;
 
@@ -215,11 +217,11 @@ public class Koordinaatti implements Cloneable {
             }
             double k = koordinaatti[i];
             double k1Temp = 0;
-            if (koordinaatti1.koordinaatteja() > i) {
+            if (koordinaatti1.getAste() > i) {
                 k1Temp = koordinaatti1.koordinaatti[i] - k;
             }
             double k2Temp = 0;
-            if (koordinaatti2.koordinaatteja() > i) {
+            if (koordinaatti2.getAste() > i) {
                 k2Temp = koordinaatti2.koordinaatti[i] - k;
             }
             if (k1Temp < 0 ^ k2Temp < 0) {
@@ -241,10 +243,6 @@ public class Koordinaatti implements Cloneable {
         builder.deleteCharAt(builder.length() - 1);
         builder.append(']');
         return builder.toString();
-    }
-
-    private int koordinaatteja() {
-        return koordinaatti.length;
     }
 
     public Koordinaatti vastaKohta() {
@@ -274,5 +272,14 @@ public class Koordinaatti implements Cloneable {
 
     public int getAste() {
         return koordinaatti.length;
+    }
+
+    public double pisteTulo(Koordinaatti k) {
+        double vastaus = 0;
+        int min = Math.min(koordinaatti.length, k.koordinaatti.length);
+        for (int i = 0; i < min; i++) {
+            vastaus += k.koordinaatti[i] * koordinaatti[i];
+        }
+        return vastaus;
     }
 }

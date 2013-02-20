@@ -4,6 +4,7 @@ import aopkarja.kasittely.Kasittelija;
 import aopkarja.kasittely.KasittelyTyyppi;
 import aopkarja.kasittely.Tapahtuma;
 import aopkarja.kasittely.UI.Renderoija;
+import aopkarja.kasittely.UI.Vari;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,6 +52,7 @@ public abstract class Komponentti {
 
     @Kasittelija(KasittelyTyyppi.RENDEROI)
     private void renderoi() {
+        renderoija.renderoiAlue(this);
         renderoija.renderoi(this);
         for (Komponentti komponentti : komponentit) {
             komponentti.renderoi();
@@ -127,5 +129,9 @@ public abstract class Komponentti {
 
     public void poista(Komponentti komponentti) {
         poistettavat.add(komponentti);
+    }
+
+    public Vari getVari() {
+        return new Vari(1, 1, 1);
     }
 }

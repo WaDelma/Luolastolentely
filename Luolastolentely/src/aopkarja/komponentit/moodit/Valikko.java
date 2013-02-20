@@ -11,8 +11,8 @@ import aopkarja.kasittely.UI.renderoijat.PainikeRenderoija;
 import aopkarja.kasittely.UI.renderoijat.PeliRenderoija;
 import aopkarja.kasittely.tapahtumat.HiiriTapahtuma;
 import aopkarja.komponentit.LopetusPainike;
-import aopkarja.komponentit.SiirtymaPainike;
 import aopkarja.komponentit.Piste;
+import aopkarja.komponentit.SiirtymaPainike;
 
 /**
  * Valikko moodi(kts. {@link aopkarja.UI.UIKasittelija})/{@link Komponentti}
@@ -28,8 +28,8 @@ public class Valikko extends Moodi {
      */
     public Valikko(Renderoija renderoija) {
         super(renderoija);
-        lisaa(new SiirtymaPainike("Aloita", Peli.class, PeliRenderoija.class, 400, 450, 100, 25, new PainikeRenderoija(), this).setVari(new Vari(0, 1, 0)));
-        lisaa(new LopetusPainike("Lopeta", 400, 400, 100, 25, new PainikeRenderoija(), this).setVari(new Vari(0, 0, 0)));
+        lisaa(new SiirtymaPainike("Aloita", Peli.class, PeliRenderoija.class, 400, 450, 100, 25, new PainikeRenderoija(), this).setVari(new Vari(0, 1, 0), new Vari(1, 0, 1)));
+        lisaa(new LopetusPainike("Lopeta", 400, 400, 100, 25, new PainikeRenderoija(), this).setVari(new Vari(0, 0, 0), new Vari(1, 1, 1)));
     }
 
     /**

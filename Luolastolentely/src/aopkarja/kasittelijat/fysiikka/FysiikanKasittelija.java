@@ -48,8 +48,9 @@ public class FysiikanKasittelija {
                     suunta.yksikoi();
                     suunta.kerro(kohde.getVoima().etaisyys(new double[kohde.getVoima().getAste()]));
                     kohde.getAlue().siirra(suunta);
-                    kohde.getVoima().kerro(1 - alueenKappale(alue, kasittelija.getKasittelijat()).getKitka());
-                    tapahtumienKasittelija.lisaa(new TormaysTapahtuma(kohde, suunta));
+                    FyysinenKappale toinenKappale = alueenKappale(alue, kasittelija.getKasittelijat());
+                    kohde.getVoima().kerro(1 - toinenKappale.getKitka());
+                    tapahtumienKasittelija.lisaa(new TormaysTapahtuma(kohde, toinenKappale, suunta));
                 }
             }
         });

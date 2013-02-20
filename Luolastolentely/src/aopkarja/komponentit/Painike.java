@@ -17,6 +17,8 @@ public class Painike extends Komponentti {
     private Vari vari;
     private boolean painettu;
     private String teksti;
+    private Vari painettuVari;
+    private Vari eiPainettuVari;
 
 //    public Painike(Renderoija<Painike> renderoija, Komponentti omistaja) {
 //        super(renderoija, omistaja);
@@ -27,6 +29,9 @@ public class Painike extends Komponentti {
         this.teksti = teksti;
         getAlue().lisaa(new Koordinaatti(x, y));
         getAlue().lisaa(new Koordinaatti(x + leveys, y));
+        getAlue().lisaa(new Koordinaatti(x + leveys, y + korkeus));
+        
+        getAlue().lisaa(new Koordinaatti(x, y));
         getAlue().lisaa(new Koordinaatti(x + leveys, y + korkeus));
         getAlue().lisaa(new Koordinaatti(x, y + korkeus));
         vari = new Vari(1, 1, 1);
@@ -41,12 +46,15 @@ public class Painike extends Komponentti {
     }
 
     
+    @Override
     public Vari getVari() {
         return vari;
     }
 
-    public Painike setVari(Vari vari) {
-        this.vari = vari;
+    public Painike setVari(Vari eiPainettu, Vari painettu) {
+        vari = eiPainettu;
+        painettuVari = painettu;
+        eiPainettuVari = eiPainettu;
         return this;
     }
     
@@ -57,10 +65,12 @@ public class Painike extends Komponentti {
             if (tieto[0].equals(Boolean.TRUE)) {
                 if (tieto[1].equals(0)) {
                     painettu = true;
+                    vari = painettuVari;
                 }
             } else {
                 if (tieto[1].equals(0)) {
                     painettu = false;
+                    vari = eiPainettuVari;
                 }
             }
         }

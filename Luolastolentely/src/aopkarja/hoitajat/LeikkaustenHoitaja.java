@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class LeikkaustenHoitaja {
 
+    private static final double TARKKUUS = 10;
+
     public static boolean leikkaako(Alue alue1, Alue alue2) {
         double etaisyys = alue1.getKeskipiste().etaisyys(alue2.getKeskipiste());
         double max = alue1.getPienimmanUlkonaOlevanYmpyranSade()
@@ -21,22 +23,85 @@ public class LeikkaustenHoitaja {
         }
         List<Koordinaatti> koordinaatit1 = alue1.getKoordinaatit();
         List<Koordinaatti> koordinaatit2 = alue2.getKoordinaatit();
-        if (koordinaatit1.size() == 4) {
-            switch (aabbTesti(koordinaatit1, koordinaatit2)) {
-                case 0:
-                    return false;
-                case 1:
-                    return true;
+        List<Koordinaatti> kolmio = new ArrayList<>();
+        for (int i = 0; i < koordinaatit1.size() / 3; i++) {
+            kolmio.add(koordinaatit1.get(i * 3 + 0));
+            kolmio.add(koordinaatit1.get(i * 3 + 1));
+            kolmio.add(koordinaatit1.get(i * 3 + 2));
+            if (testaaKolmioJaKuvio(kolmio, koordinaatit2)) {
+                return true;
             }
-        } else if (koordinaatit2.size() == 4) {
-            switch (aabbTesti(koordinaatit2, koordinaatit1)) {
-                case 0:
-                    return false;
-                case 1:
-                    return true;
-            }
+            kolmio.clear();
         }
-        return true;
+        return false;
+//        if (koordinaatit1.size() == 3) {
+//            return testaaKolmioJaKuvio(koordinaatit1, koordinaatit2);
+//        } else if (koordinaatit2.size() == 3) {
+//            return testaaKolmioJaKuvio(koordinaatit2, koordinaatit1);
+//        } else if (koordinaatit1.size() == 4) {
+//            switch (aabbTesti(koordinaatit1, koordinaatit2)) {
+//                case 0:
+//                    return false;
+//                case 1:
+//                    return true;
+//            }
+//        } else if (koordinaatit2.size() == 4) {
+//            switch (aabbTesti(koordinaatit2, koordinaatit1)) {
+//                case 0:
+//                    return false;
+//                case 1:
+//                    return true;
+//            }
+//        }
+//        return true;
+    }
+
+    private static boolean testaaKolmioJaKuvio(List<Koordinaatti> kolmio, List<Koordinaatti> kuvio) {
+        Koordinaatti eka = kuvio.get(0);
+        for (int i = 1; i < kuvio.size(); i++) {
+            Koordinaatti toka = kuvio.get(i);
+            Koordinaatti siirto = new Koordinaatti(toka);
+            siirto.siirra(eka.vastaKohta());
+            double etaisyys = siirto.etaisyys(toka);
+            double maara = Math.floor(etaisyys / TARKKUUS);
+            siirto.kerro(1 / maara);
+            Koordinaatti ekaTemp = new Koordinaatti(eka);
+            for (int j = 0; j < maara; j++) {
+                ekaTemp.siirra(siirto);
+                if (pisteKolmioSisalla(ekaTemp, kolmio)) {
+                    return true;
+                }
+            }
+            eka = toka;
+        }
+        return false;
+    }
+
+    public static boolean pisteKolmioSisalla(Koordinaatti piste, List<Koordinaatti> kolmio) {
+        // Compute vectors       
+        Koordinaatti vastaA = kolmio.get(0).vastaKohta();
+        Koordinaatti CpoisA = new Koordinaatti(kolmio.get(1));
+        CpoisA.siirra(vastaA);
+        Koordinaatti BpoisA = new Koordinaatti(kolmio.get(2));
+        BpoisA.siirra(vastaA);
+        Koordinaatti PpoisA = new Koordinaatti(piste);
+        PpoisA.siirra(vastaA);
+
+        // Compute dot products
+        double tuloCC = CpoisA.pisteTulo(CpoisA);
+        double tuloCB = CpoisA.pisteTulo(BpoisA);
+        double tuloCP = CpoisA.pisteTulo(PpoisA);
+        double tuloBB = BpoisA.pisteTulo(BpoisA);
+        double tuloBP = BpoisA.pisteTulo(PpoisA);
+
+        // Compute barycentric coordinates
+        double temp = 1 / (tuloCC * tuloBB - tuloCB * tuloCB);
+        double u = (tuloBB * tuloCP - tuloCB * tuloBP) * temp;
+        double v = (tuloCC * tuloBP - tuloCB * tuloCP) * temp;
+
+        // Check if point is in triangle
+        return (u >= 0) && (v >= 0) && (u + v < 1);
+
     }
 
     private static int aabbTesti(List<Koordinaatti> ehkaAABB, List<Koordinaatti> toinen) {

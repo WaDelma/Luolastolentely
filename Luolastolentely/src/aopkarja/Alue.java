@@ -1,6 +1,5 @@
 package aopkarja;
 
-import aopkarja.alueet.Ympyra;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +18,6 @@ public class Alue implements Cloneable {
     private final boolean[] muutettu;
     private double sisalla = -1;
     private double ulkona = -1;
-    private int ID;
     private static final double TAU = Math.PI * 2;
 
     public Alue(List<Koordinaatti> temp) {

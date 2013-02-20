@@ -10,6 +10,7 @@ import aopkarja.kasittelijat.fysiikka.FyysinenKappale;
 import aopkarja.kasittely.Kasittely;
 import aopkarja.kasittely.Tapahtuma;
 import aopkarja.kasittely.UI.Renderoija;
+import aopkarja.kasittely.UI.Vari;
 import aopkarja.kasittely.tapahtumat.EnergianLisaysTapahtuma;
 import aopkarja.kasittely.tapahtumat.Painallus;
 
@@ -40,12 +41,15 @@ public class Alus extends Komponentti {
                 kasittelija.lisaa(instanssi);
             }
         });
-        
+
         fyysinenKappale.setPaino(1.0);
         int leveys = 10;
         int korkeus = 10;
         getAlue().lisaa(new Koordinaatti(x, y));
         getAlue().lisaa(new Koordinaatti(x + leveys, y));
+        getAlue().lisaa(new Koordinaatti(x + leveys, y + korkeus));
+
+        getAlue().lisaa(new Koordinaatti(x, y));
         getAlue().lisaa(new Koordinaatti(x + leveys, y + korkeus));
         getAlue().lisaa(new Koordinaatti(x, y + korkeus));
     }
@@ -107,5 +111,10 @@ public class Alus extends Komponentti {
     @Override
     public boolean aktiivinen() {
         return !kuollut;
+    }
+
+    @Override
+    public Vari getVari() {
+        return new Vari(0.5, 1, 1);
     }
 }
