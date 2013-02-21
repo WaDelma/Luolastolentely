@@ -8,9 +8,8 @@ import java.util.Arrays;
  * @author Antti
  */
 public class Koordinaatti implements Cloneable {
-    
-    public static final Koordinaatti ORIGO = new Koordinaatti();
 
+    public static final Koordinaatti ORIGO = new Koordinaatti();
     private double[] koordinaatti;
 
     /**
@@ -239,8 +238,10 @@ public class Koordinaatti implements Cloneable {
             builder.append(Math.round(d * 100) / 100.0);
             builder.append(", ");
         }
-        builder.deleteCharAt(builder.length() - 1);
-        builder.deleteCharAt(builder.length() - 1);
+        int uusiPituus = builder.length() - 2;
+        if (uusiPituus > 0) {
+            builder.setLength(uusiPituus);
+        }
         builder.append(']');
         return builder.toString();
     }

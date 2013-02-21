@@ -4,16 +4,20 @@ import aopkarja.Komponentti;
 import aopkarja.Koordinaatti;
 import aopkarja.Luolastolentely;
 import aopkarja.Moodi;
+import aopkarja.SatunnaisGeneraattori;
 import aopkarja.kasittelijat.PeliTilanKasittelija;
 import aopkarja.kasittelijat.fysiikka.FysiikanKasittelija;
+import aopkarja.kasittelijat.fysiikka.LeikkaustenHoitaja;
 import aopkarja.kasittely.Tapahtuma;
 import aopkarja.kasittely.UI.Renderoija;
 import aopkarja.kasittely.UI.renderoijat.EnergiaPalloRenderoija;
 import aopkarja.kasittely.UI.renderoijat.KiviRenderoija;
 import aopkarja.kasittely.UI.renderoijat.PelaajaRenderoija;
+import aopkarja.kasittely.tapahtumat.HiiriTapahtuma;
 import aopkarja.komponentit.Alus;
 import aopkarja.komponentit.EnergiaPallo;
 import aopkarja.komponentit.Kivi;
+import aopkarja.komponentit.Piste;
 import java.util.Random;
 
 /**
@@ -35,16 +39,15 @@ public class Peli extends Moodi {
         Random satunnainen = new Random();
         for (int i = 0; i < 10; i++) {
             EnergiaPallo pallo = new EnergiaPallo(new EnergiaPalloRenderoija(), this);
-            pallo.getAlue().siirra(new Koordinaatti(20 + satunnainen.nextInt(500), 20 + satunnainen.nextInt(500)));
+            pallo.getAlue().siirra(new Koordinaatti(SatunnaisGeneraattori.getInt(20, 500), SatunnaisGeneraattori.getInt(20, 500)));
             pallo.getAlue().skaalaa(5);
-            //System.out.println(pallo);
             lisaa(pallo);
         }
         for (int i = 0; i < 10; i++) {
             Kivi kivi = new Kivi(new KiviRenderoija(), this);
-            kivi.getAlue().skaalaa(5 + satunnainen.nextInt(4));
+            kivi.getAlue().skaalaa(SatunnaisGeneraattori.getInt(5, 10));
             kivi.getAlue().kierra(satunnainen.nextDouble(), 0, 1);
-            kivi.getAlue().siirra(new Koordinaatti(20 + satunnainen.nextInt(500), 20 + satunnainen.nextInt(500)));
+            kivi.getAlue().siirra(new Koordinaatti(SatunnaisGeneraattori.getInt(20, 500), SatunnaisGeneraattori.getInt(20, 500)));
             lisaa(kivi);
         }
     }

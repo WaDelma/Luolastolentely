@@ -34,9 +34,13 @@ public class FysiikanKasittelija {
         kasittelija.kasittele(new Kasittely<FyysinenKappale>() {
             @Override
             public void tee(FyysinenKappale kohde) {
+                kohde.getRotaatioVoima().kerro(1 - kitka);
                 kohde.getVoima().kerro(1 - kitka);
 
                 kohde.getAlue().siirra(kohde.getVoima());
+                Koordinaatti rotaatio = kohde.getRotaatioVoima();
+                kohde.getAlue().kierra(rotaatio.get(0), 0, 1);
+                
                 if (!kohde.isPainoton()) {
                     kohde.getVoima().siirra(painovoima);
                 }

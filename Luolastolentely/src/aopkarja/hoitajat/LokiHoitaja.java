@@ -1,5 +1,7 @@
 package aopkarja.hoitajat;
 
+import java.util.Arrays;
+
 /**
  *
  * @author aopkarja
@@ -35,19 +37,34 @@ public class LokiHoitaja {
         rakentaja.append(o);
         System.out.println(rakentaja);
     }
+    
+    /*
+     * TODO:
+     * 
+     * 1. thrown exception: exception
+     * Message: message
+     *   ->  package.class.method(file:line)
+     *   ->  package.class.method(file:line)
+     *   2. thrown exception
+     *   Message: message
+     *      ->  package.class.method(file:line)
+     * 
+     * 
+     * 
+     */
 
     public static void ilmoita(Exception e) {
         StringBuilder rakentaja = new StringBuilder();
         asetaVari(rakentaja, Vari.PURPPURA);
         rakentaja.append("Error: ");
-        recursiivinenIlmoitus(rakentaja, e, 1, Vari.PUNAINEN);
+        rekursiivinenIlmoitus(rakentaja, e, 1, Vari.PUNAINEN);
         asetaVari(rakentaja, Vari.RESETOINTI);
         System.err.println(rakentaja);
 
-        //e.printStackTrace();
+       e.printStackTrace();
     }
 
-    private static void recursiivinenIlmoitus(StringBuilder rakentaja, Throwable e, int sisennys, Vari vari) {
+    private static void rekursiivinenIlmoitus(StringBuilder rakentaja, Throwable e, int sisennys, Vari vari) {
         asetaVari(rakentaja, vari);
         lisaaUusiRivi(rakentaja.append(e.getClass().toString().substring(5)));
         String viesti = e.getMessage();
@@ -81,7 +98,7 @@ public class LokiHoitaja {
             sisenna(rakentaja, sisennys);
             asetaVari(rakentaja, Vari.PURPPURA);
             rakentaja.append("Cause:");
-            recursiivinenIlmoitus(rakentaja, e.getCause(), sisennys + 1, Vari.SININEN);
+            rekursiivinenIlmoitus(rakentaja, e.getCause(), sisennys + 1, Vari.SININEN);
         }
     }
 

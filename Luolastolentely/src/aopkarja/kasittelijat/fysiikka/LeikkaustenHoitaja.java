@@ -61,8 +61,8 @@ public class LeikkaustenHoitaja {
 
     public static boolean testaaKolmioJaKuvio(List<Koordinaatti> kolmio, List<Koordinaatti> kuvio) {
         Koordinaatti eka = kuvio.get(0);
-        for (int i = 1; i < kuvio.size(); i++) {
-            Koordinaatti toka = kuvio.get(i);
+        for (int i = 1; i <= kuvio.size(); i++) {
+            Koordinaatti toka = kuvio.get(i % kuvio.size());
 
             //Laske kuinka usein testi tehdään
             Koordinaatti siirto = new Koordinaatti(toka);
@@ -70,7 +70,7 @@ public class LeikkaustenHoitaja {
             double etaisyys = siirto.etaisyys(toka);
             double maara = Math.floor(etaisyys / TARKKUUS);
             siirto.kerro(1 / maara);
-
+            
             //Suorita testit
             Koordinaatti ekaTemp = new Koordinaatti(eka);
             if (pisteKolmioSisalla(ekaTemp, kolmio)) {

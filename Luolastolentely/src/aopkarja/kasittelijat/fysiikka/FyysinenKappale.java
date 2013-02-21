@@ -10,6 +10,7 @@ import aopkarja.Koordinaatti;
 public class FyysinenKappale {
 
     private Koordinaatti voima;
+    private Koordinaatti rotaatioVoima;
     private final Alue alue;
     private double paino;
     private double kitka;
@@ -19,6 +20,10 @@ public class FyysinenKappale {
         return paino;
     }
 
+    public Koordinaatti getRotaatioVoima() {
+        return rotaatioVoima;
+    }
+
     public Koordinaatti getVoima() {
         return voima;
     }
@@ -26,6 +31,7 @@ public class FyysinenKappale {
     public FyysinenKappale(Alue alue) {
         this.alue = alue;
         voima = new Koordinaatti();
+        rotaatioVoima = new Koordinaatti();
     }
 
     public Alue getAlue() {
@@ -48,6 +54,17 @@ public class FyysinenKappale {
         return kitka;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder rakentaja = new StringBuilder();
+        rakentaja.append(poistettu).append(": ");
+        rakentaja.append(voima).append(' ');
+        rakentaja.append(paino).append(' ');
+        rakentaja.append(kitka).append(' ');
+        rakentaja.append(alue);
+        return rakentaja.toString();
+    }
+
     public void setKitka(double kitka) {
         this.kitka = kitka;
     }
@@ -55,8 +72,8 @@ public class FyysinenKappale {
     public void poista() {
         poistettu = true;
     }
-    
-    public boolean isPoistettu(){
+
+    public boolean isPoistettu() {
         return poistettu;
     }
 }

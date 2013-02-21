@@ -22,7 +22,8 @@ public class Alus extends Komponentti {
 
     private final FyysinenKappale fyysinenKappale;
     private double energia = 50;
-    private int kuolemaAjastin = 200;
+    private static final int KUOLEMA_AJASTIN_MAX = 200;
+    private int kuolemaAjastin = KUOLEMA_AJASTIN_MAX;
     private boolean kuollut;
 
     public Alus(double x, double y, Renderoija renderoija, Komponentti omistaja) {
@@ -100,6 +101,14 @@ public class Alus extends Komponentti {
             kuolemaAjastin--;
             if (kuolemaAjastin <= 0) {
                 kuole();
+            }
+        } else {
+            kuolemaAjastin = KUOLEMA_AJASTIN_MAX;
+            if (getAlue().getKeskipiste().get(0) < 0
+                    || getAlue().getKeskipiste().get(1) < 0
+                    || getAlue().getKeskipiste().get(0) > 800
+                    || getAlue().getKeskipiste().get(1) > 600) {
+                energia--;
             }
         }
     }
