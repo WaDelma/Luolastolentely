@@ -1,18 +1,15 @@
 package aopkarja;
 
-import aopkarja.hoitajat.LokiHoitaja;
-import aopkarja.kasittelijat.HiiriSaie;
-import aopkarja.kasittelijat.NappaimistoSaie;
-import aopkarja.kasittelijat.SisaantulonKasittelija;
-import aopkarja.kasittelijat.TapahtumienKasittelija;
-import aopkarja.kasittelijat.fysiikka.FysiikanKasittelija;
+import aopkarja.UI.UIKasittelija;
+import aopkarja.UI.komponentit.moodit.Valikko;
+import aopkarja.hoitajat.KirjanpidonHoitaja;
 import aopkarja.kasittely.Kasittely;
 import aopkarja.kasittely.KasittelyTyyppi;
 import aopkarja.kasittely.KasittelynHoitaja;
-import aopkarja.kasittely.UI.UIKasittelija;
-import aopkarja.kasittely.UI.renderoijat.ValikkoRenderoija;
-import aopkarja.komponentit.moodit.Valikko;
-import java.util.List;
+import aopkarja.kasittely.kasittelijat.HiiriSaie;
+import aopkarja.kasittely.kasittelijat.NappaimistoSaie;
+import aopkarja.kasittely.kasittelijat.SisaantulonKasittelija;
+import aopkarja.kasittely.kasittelijat.TapahtumienKasittelija;
 
 /**
  * Peli itse.
@@ -29,7 +26,7 @@ public class Luolastolentely {
 
     /**
      *
-     * @param args the command line arguments
+     * @param args Komentorivi argumentit
      */
     public static void main(String[] args) {
         try {
@@ -37,9 +34,9 @@ public class Luolastolentely {
             instanssi.initialisoi();
             instanssi.aja();
         } catch (RuntimeException e) {
-            LokiHoitaja.ilmoita(e);
+            KirjanpidonHoitaja.ilmoita(e);
         } catch (Exception e) {
-            LokiHoitaja.ilmoita(e);
+            KirjanpidonHoitaja.ilmoita(e);
         } finally {
             instanssi.sulje();
         }
@@ -58,7 +55,7 @@ public class Luolastolentely {
         kasittelijat.lisaa(tapahtumanKasittelija);
 
         //UI käsittelijä
-        uiKasittelija = new UIKasittelija(new Valikko(new ValikkoRenderoija()));
+        uiKasittelija = new UIKasittelija(new Valikko());
         tapahtumanKasittelija.lisaaKasittelija(uiKasittelija);
         kasittelijat.lisaa(uiKasittelija);
 
@@ -105,15 +102,20 @@ public class Luolastolentely {
     public boolean kaynnissa() {
         return kaynnissa;
     }
-    
+
+    /**
+     * @return Palauttaa tapahtumien käsittelijän
+     */
     public TapahtumienKasittelija getTapahtumienKasittelija() {
         return tapahtumanKasittelija;
     }
 
-    public <T> List<T> getKasittelijat(Class<T> c) {
-        return kasittelijat.getKasittelijat(c);
-    }
-
+    /**
+     * Tee käsittely kaikille tietyn tyyppisille käsittelijöille
+     *
+     * @param luokka tyyppi
+     * @param kasittely käsittely, joka tehdään
+     */
     public <T> void teeKasittelijoille(Class<T> luokka, Kasittely<T> kasittely) {
         kasittelijat.kasittele(luokka, kasittely);
     }

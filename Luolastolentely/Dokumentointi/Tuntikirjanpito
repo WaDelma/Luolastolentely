@@ -1,7 +1,15 @@
-15.01.2013 3h Projektin aloittamista
+﻿15.01.2013 3h Projektin aloittamista
 16.01.2013 6h Käsittelijä valmiiksi, UIn perus rakennetta alustavasti, sekoilua gitin kanssa
 20.01.2013 2h UIta pidemmälle, Koordinaatti luokka
 21.01.2013 4h UIta ja sen kuuntelua, hiiren käsittelyä ja yleistä tapahtumien käsittelyä
 22.01.2013 6h Luokka kaavio, tapahtumien käsittely, renderöinnin ja tapahtumien käsittelyn erotus, Alue, jossa on Koordinaatteja 
 29.01.2013 4h Tapahtumien käsittely muuhun käsittelyyn.
 05.02.2013 6h Javadoc, AABB leikkaus, lisää testausta ja sekvenssi kaavio
+11.02.2013 3h Fontti, sisääntulon kehitystä
+12.02.2013 6h Fyysiikkaa, varsinainen pelin alku
+13.02.2013 2h Refaktorointia
+18.02.2013 5h Menuja, lisää fysiikkaa ja pelaamista
+19.02.2013 3h Kierto ja värilliset painikkeet
+20.02.2013 6h Testausta, parempi renderointi ja törmäyksen hallinta
+21.02.2013 2h Törmäys korjattu
+22.02.2013 12h Viimeistelyä

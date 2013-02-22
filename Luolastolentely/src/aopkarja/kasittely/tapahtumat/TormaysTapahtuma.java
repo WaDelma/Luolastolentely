@@ -1,8 +1,8 @@
 
 package aopkarja.kasittely.tapahtumat;
 
-import aopkarja.Koordinaatti;
-import aopkarja.kasittelijat.fysiikka.FyysinenKappale;
+import aopkarja.fysiikka.FyysinenKappale;
+import aopkarja.fysiikka.asiat.Koordinaatti;
 import aopkarja.kasittely.Tapahtuma;
 
 /**

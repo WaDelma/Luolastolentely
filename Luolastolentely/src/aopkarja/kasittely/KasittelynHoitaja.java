@@ -1,6 +1,6 @@
 package aopkarja.kasittely;
 
-import aopkarja.hoitajat.LokiHoitaja;
+import aopkarja.hoitajat.KirjanpidonHoitaja;
 import aopkarja.kasittely.tapahtumat.TyhjaTapahtuma;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -8,12 +8,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * Hoitaa {@link Kasittelija}n/t, jotka on lisätty siihen.
+ * Hoitaa {@link Kasittelija}t, jotka on lisätty siihen.
  *
  * @author aopkarja
  */
@@ -185,6 +186,17 @@ public class KasittelynHoitaja<T> {
         return metodit;
     }
 
+    public void poista(T object) {
+        kasittelijaOliot.remove(object);
+        for (List<KasittelijaKapseli>  kapselit: kasittelijat.values()) {
+            for (Iterator<KasittelijaKapseli> it = kapselit.iterator(); it.hasNext();) {
+                if(it.next().olio == object){
+                    it.remove();
+                }
+            }
+        }
+    }
+
     /**
      * Kapseli, jolla {@link Kasittelija}t tallennetaan.
      *
@@ -227,8 +239,7 @@ public class KasittelynHoitaja<T> {
                     metodi.invoke(olio);
                 }
             } catch (ReflectiveOperationException e) {
-                System.out.println(metodi);
-                LokiHoitaja.ilmoita(e);
+                KirjanpidonHoitaja.ilmoita(e);
             }
         }
 

@@ -1,0 +1,34 @@
+KäsittelynHoitaja hoitaa käsittelijöitä.
+Käsittelijät ovat eri Tyyppisiä.
+Tyypejä ovat KAYNNISTA, AJA, LOPETA, TAPAHTUMA ja RENDEROI.
+Käsittelijällä voi olla Prioriteetti toista Käsittelijää vastaan.
+
+Luolastolentelyllä on KäsittelynHoitaja.
+Luolastolentelyllä on UIKäsittelijä, FysiikanKäsittelijä, TapahtumienKäsittelijä ja SisäänTulonKäsittelijöitä.
+
+UIKäsittelijä on Käsittelijä.
+UIKäsittelijällä on KäsittelynHoitaja, joka huolehtii Moodista.
+Moodi on Käsittelijä.
+Moodilla on KäsittelynHoitaja.
+Moodi on näkymä, joka tällä hetkellä on käytössä.
+Moodi on Komponentti.
+Komponenteilla voi olla Komponentteja lapsina.
+Komponentit ovat asioita maailmassa.
+Komponenteilla on Alue, jolla se on maailmasssa.
+Komponenteilla on Renderoija, joka renderöi Komponentin ja sen Alueen.
+Alue koostuu Koordinaateista.
+
+FysiikanKäsittelijä on käsittelijä.
+FysiikanKäsittelijällä on KäsittelynHoitaja, joka huolehtii FyysisistäKappaleista.
+FyysinenKappale kuuluu Komponentille.
+FysiikanKäsittelijä muuttaa FyysinenKappaleen kautta Komponentin Aluetta.
+
+TapahtumienKäsittelijä kokoaa ja välittää edelleen Tapahtumia.
+SisääntulonKäsittelijät käsittelevät pelaajan komentoja ja lähettävät ne TapahtumienKäsittelijälle.
+FysiikanKäsittelijä lähettää Tapahtumia törmäyksiin liittyen.
+UIKäsittelijä käsittelee Tapahtumia.
+Komponentit käsittelevät Tapahtumia.
+
+Komponentit voivat lähettää Käsittelyjä kaikille niiden omistajien KäsittelynHoitajille samanaikaisesti.
+Moodi ja Luolastolentely ovat Komponenttien omistajia, joilla on KäsittelynHoitaja.
+KäsittelynHoitajat toteuttavat Käsittelyn kaikille tietynlaisille Käsittelijöille.

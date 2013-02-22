@@ -1,7 +1,7 @@
 
 package aopkarja.kasittely.tapahtumat;
 
-import aopkarja.Koordinaatti;
+import aopkarja.fysiikka.asiat.Koordinaatti;
 import aopkarja.kasittely.Tapahtuma;
 
 /**

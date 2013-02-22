@@ -1,2 +1,11 @@
 aopkarja
 aopkarja.UI
+aopkarja.UI.komponentit
+aopkarja.UI.komponentit.moodit
+aopkarja.UI.renderoijat
+aopkarja.fysiikka
+aopkarja.fysiikka.asiat
+aopkarja.hoitajat
+aopkarja.kasittely
+aopkarja.kasittely.kasittelijat
+aopkarja.kasittely.tapahtumat

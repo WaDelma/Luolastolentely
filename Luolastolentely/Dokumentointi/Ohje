@@ -1,0 +1,15 @@
+Kerää kaikki energia pallot päästäksesi seuraavaan leveliin.
+Sininen palkki on energiasi.
+Liikkuminen vie energiaa.
+Suunnan klikaaminen antaa nopean kerta buustin, joka vie enemmän energiaa.
+Painettuna pitäminen vie vähemmän, mutta se on hitaampaa.
+Leveleitä on loputtomasti, ne vaikeutuvat.
+Energia säilyy levelistä toiseen.
+Peli loppuu energian loppumiseen tai liian kauas ruudun ulkopuolelle menoon.
+
+Pelin aloitus - VIHREÄ
+Valikko - ORANSSI
+Pelin lopetus - MUSTA
+
+Liikkuminen - WASD
+Levelin skippaaminen - Q
